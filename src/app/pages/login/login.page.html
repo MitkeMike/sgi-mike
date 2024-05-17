@@ -6,27 +6,28 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content class="ion-padding" fullscreen>
   <div class="container">
     <div class="content">
-      <ion-item>
-        <ion-label position="floating">
-          <ion-icon name="person-circle-outline"></ion-icon>
-          Correo electrónico</ion-label>
-        <ion-input type="email" [(ngModel)]="email"></ion-input>
-      </ion-item>
+      <form (ngSubmit)="login($event)"> <!-- Utiliza ngSubmit en lugar de Submit -->
+        <ion-item>
+          <ion-label position="floating">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            Correo electrónico
+          </ion-label>
+          <ion-input type="email" [(ngModel)]="ct_correo" name="ct_correo" required></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">
-          <ion-icon name="lock-closed-outline"></ion-icon>
-          Contraseña</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            Contraseña
+          </ion-label>
+          <ion-input type="password" [(ngModel)]="ct_password" name="ct_password" required></ion-input>
+        </ion-item>
 
-      <ion-button expand="block" (click)="login()">Iniciar sesión</ion-button>
+        <ion-button expand="block" type="submit">Iniciar sesión</ion-button>
+      </form>
     </div>
   </div>
 </ion-content>
-

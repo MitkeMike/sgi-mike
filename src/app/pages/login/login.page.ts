@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/Services/auth.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -8,17 +8,26 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  email: string = '';
-  password: string = '';
+  ct_correo: string = '';
+  ct_password: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+      
   }
-  login() {
-    // Aquí iría la lógica real de inicio de sesión, como enviar datos a un backend o autenticar localmente
-    // Por simplicidad, solo redireccionaremos a otra página después de hacer clic en "Iniciar sesión"
-    this.router.navigateByUrl('/dashboard');
+
+  async login(event: Event) {
+    event.preventDefault(); // Evita que la página se recargue al enviar el formulario
+    try {
+      const response = await this.authService.login(this.ct_correo, this.ct_password);
+      console.log(response);
+
+      //Redireccionar a la página de inicio
+      this.router.navigate(['/incidentes']);
+    } catch (error) {
+      console.error('No se pudo iniciar Sesion',error);
+    } 
   }
 
 }
