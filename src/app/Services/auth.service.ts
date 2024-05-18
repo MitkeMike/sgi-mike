@@ -11,13 +11,11 @@ export class AuthService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
-
   async login(ct_correo: string, ct_password: string): Promise<any> {
     try {
-      const response = await this.http.post(`${this.apiURL}usuarios/login`, { ct_correo, ct_password }).toPromise();
+      const response: any = await this.http.post(`${this.apiURL}usuarios/login`, { ct_correo, ct_password }).toPromise();
       console.log('Login exitoso', response);
-      return response;
-      
+      return response; // Devuelve la respuesta completa de la API
     } catch (error) {
       console.error('Login error:', error);
       const alert = await this.alertController.create({
@@ -26,8 +24,7 @@ export class AuthService {
         buttons: ['OK']
       });
       await alert.present();
+      return null; // Devuelve null en caso de error
     }
   }
-
-  
 }

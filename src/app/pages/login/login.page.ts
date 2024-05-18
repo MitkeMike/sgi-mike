@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -13,9 +14,7 @@ export class LoginPage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-      
-  }
+  ngOnInit(): void { }
 
   async login(event: Event) {
     event.preventDefault(); // Evita que la página se recargue al enviar el formulario
@@ -23,11 +22,15 @@ export class LoginPage implements OnInit {
       const response = await this.authService.login(this.ct_correo, this.ct_password);
       console.log(response);
 
-      //Redireccionar a la página de inicio
-      this.router.navigate(['/incidentes']);
+      if (response && response.message === 'Inicio de sesión exitoso') { // Verifica el mensaje de éxito
+        // Redireccionar a la página de incidentes
+        this.router.navigate(['/incidentes']);
+      } else {
+        console.error('Correo o contraseña incorrectos');
+        // Aquí podrías añadir una alerta para notificar al usuario
+      }
     } catch (error) {
-      console.error('No se pudo iniciar Sesion',error);
-    } 
+      console.error('No se pudo iniciar sesión', error);
+    }
   }
-
 }

@@ -5,17 +5,29 @@
     align-items: center;
     text-align: center;
     height: 100%;
-}
-
-.container {
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px; /* Reducir el margen inferior para pegarlo al formulario */
+  }
+  
+  .logo img {
+    width: 150px; /* Ajusta el tamaño del logo según sea necesario */
+    height: auto;
+  }
+  
+  .container {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.content {
+  }
+  
+  .content {
     width: 90%;
     max-width: 400px;
     /* ajusta el ancho máximo según tus preferencias */
-}
+  }
+  
