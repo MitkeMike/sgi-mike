@@ -31,3 +31,33 @@
     /* ajusta el ancho máximo según tus preferencias */
   }
   
+  .custom-login-button {
+    --background: #6499E9; /* Cambia el color de fondo aquí */
+    --color: white; /* Cambia el color del texto aquí */
+    --border-radius: 10px; /* Opcional: para hacer los bordes redondeados */
+  }
+  
+  .custom-login-button:hover {
+    --background: #A6F6FF; /* Cambia el color de fondo al pasar el mouse aquí */
+  }
+
+  ion-item {
+    --highlight-height: 3px; /* Opcional: cambia la altura del resaltado */
+    margin-bottom: 20px !important; /* Aumenta el espacio entre los ion-items */
+  }
+  
+  ion-label {
+    padding-bottom: 8px !important; /* Agrega espacio entre la etiqueta y el input */
+    font-weight: bold; /* Opcional: hace que el texto de la etiqueta sea en negrita */
+    display: flex;
+    align-items: center;
+  }
+
+ion-input {
+  margin-top: 8px; /* Agrega espacio encima del input */
+  margin-bottom: 8px; /* Agrega espacio debajo del input */
+}
+  
+
+  
+  
