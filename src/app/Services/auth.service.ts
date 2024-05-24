@@ -54,5 +54,6 @@ export class AuthService {
   
   async cerrar_sesion() {
     localStorage.removeItem(this.tokenKey);
+    this.usuario_en_sesion_aux.next(null);
   }
 }

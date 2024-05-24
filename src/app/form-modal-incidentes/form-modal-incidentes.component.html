@@ -1,0 +1,30 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Nueva incidencia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar_modal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit($event)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Ingrese el título de la incidencia.</ion-label>
+        <ion-input type="text" [(ngModel)]="ct_titulo_incidencia" name="ct_titulo_incidencia" required> </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">¿Qué problema ocurrió para reportar dicha incidencia?</ion-label>
+        <ion-input type="text" [(ngModel)]="ct_descripcion_incidencia" name="ct_descripcion_incidencia" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">¿En qué lugar ocurrió la incidencia?</ion-label>
+        <ion-input type="text" [(ngModel)]="ct_lugar_incidencia" name="ct_lugar_incidencia" required></ion-input>
+      </ion-item>
+      <!-- Agrega más campos según sea necesario -->
+    </ion-list>
+    <ion-button expand="block" type="submit">Crear Nueva incidencia</ion-button>
+  </form>
+</ion-content>

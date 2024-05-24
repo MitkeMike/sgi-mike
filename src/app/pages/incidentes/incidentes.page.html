@@ -13,43 +13,42 @@
 
   <!-- Main Content -->
   <div class="ion-page" id="main-content">
-    <ion-header [translucent]="true">
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title class="centered-title">Incidentes</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content [fullscreen]="true">
-      <ion-card>
+  <ion-content [fullscreen]="true">
+    <ng-container *ngIf="incidentes.length > 0; else noIncidentes">
+      <ion-card *ngFor="let incidente of incidentes">
         <ion-card-header>
-          <ion-card-title>Ruptura de cañería.</ion-card-title>
-          <ion-card-subtitle>Se quebró una tubería cerca del aula 17.</ion-card-subtitle>
+          <ion-card-title>{{ incidente.ct_titulo_incidencia }}</ion-card-title>
+          <ion-card-subtitle></ion-card-subtitle>
         </ion-card-header>
-
         <ion-card-content>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam soluta reprehenderit qui. Voluptatem, totam!
-          Corrupti, necessitatibus rerum qui at mollitia asperiores eligendi, distinctio dolores sequi dolorem dolor ratione
-          incidunt magnam.
+          {{ incidente.ct_descripcion_incidencia }} <br>
+          {{ incidente.ct_lugar_incidencia }}
         </ion-card-content>
         <div class="button-container">
-          <ion-button class="custom-button" fill="clear">A1</ion-button>
-          <ion-button class="custom-button" fill="clear">A2</ion-button>
+          <ion-button class="custom-button" fill="clear">Crear diagnostico</ion-button>
+          <ion-button class="custom-button" fill="clear">Ver diagnostico</ion-button>
         </div>
       </ion-card>
-    </ion-content>
+    </ng-container>
+    <ng-template #noIncidentes>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>No hay incidentes registrados.</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Actualmente no hay incidentes para mostrar.
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
+  </ion-content>
 
-    <!-- Floating Action Modal Button  -->
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button id="open-modal" size="large"> <!-- Ajusta el tamaño del botón -->
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-    
-    <!-- Modal -->
-    
+  <!-- Floating Action Modal Button  -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="abrir_modal()" id="open-modal" size="large"> <!-- Ajusta el tamaño del botón -->
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 
   </div>
 </ion-app>
