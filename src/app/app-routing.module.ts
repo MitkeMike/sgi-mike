@@ -15,6 +15,14 @@ const routes: Routes = [
     path: 'incidentes',
     loadChildren: () => import('./pages/incidentes/incidentes.module').then( m => m.IncidentesPageModule)
   },
+  {
+    path: 'diagnosticos/:ct_cod_incidencia', // Cambié ':id' a ':ct_cod_incidencia'
+    loadChildren: () => import('./pages/diagnosticos/diagnosticos.module').then( m => m.DiagnosticosPageModule)
+  },  {
+    path: 'modal-form-diagnosticos',
+    loadChildren: () => import('./modal-form-diagnosticos/modal-form-diagnosticos.module').then( m => m.ModalFormDiagnosticosPageModule)
+  },
+
 
 
 ];
