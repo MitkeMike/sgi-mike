@@ -28,13 +28,25 @@ export class DiagnosticosService {
     }
   }
 
-  async crear_diagnostico(diagnostico: any): Promise<any> {
+  async crear_diagnostico(
+    ct_cod_incidencia:string,
+    cn_user_id: number,
+    ct_descripcion_diagnostico: string,
+    cn_tiempo_estimado_solucion: number,
+    ct_observaciones: string  
+  ): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      return await this.http.post(`${this.apiURL}diagnosticos`, diagnostico, { headers }).toPromise();
+      return await this.http.post(`${this.apiURL}diagnosticos`, {
+        ct_cod_incidencia,
+        cn_user_id,
+        ct_descripcion_diagnostico,
+        cn_tiempo_estimado_solucion,
+        ct_observaciones
+      }, { headers }).toPromise();
     } catch (error) {
       console.error('Error al crear el diagnóstico', error);
       return null;

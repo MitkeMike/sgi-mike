@@ -1,0 +1,21 @@
+<!-- menu.component.html -->
+<ion-menu contentId="main-content" class="custom-menu">
+  <ion-header class="custom-menu-header">
+    <ion-toolbar color="tertiary">
+      <ion-title class="custom-title">¿Qué deseas visualizar?</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="custom-menu-content ion-padding">
+    <!-- Contenido del menú -->
+    <ion-list>
+      <ion-item>
+        <ion-label>Hace falta Implementar.</ion-label>
+      </ion-item>
+      <!--Cerrar sesion-->
+      <ion-item (click)="cerrar_sesion()">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>

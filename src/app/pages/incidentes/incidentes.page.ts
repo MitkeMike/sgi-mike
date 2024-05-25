@@ -5,6 +5,7 @@ import { DiagnosticosService } from 'src/app/Services/diagnosticos.service';
 import { ModalController } from '@ionic/angular';
 import { FormModalIncidentesComponent } from 'src/app/form-modal-incidentes/form-modal-incidentes.component';
 import { Router } from '@angular/router';
+import { ModalFormDiagnosticosPage } from 'src/app/modal-form-diagnosticos/modal-form-diagnosticos.page';
 
 @Component({
   selector: 'app-incidentes',
@@ -67,5 +68,13 @@ export class IncidentesPage implements OnInit {
     this.router.navigate(['/diagnosticos', ct_cod_incidencia]);
   }
 
-
+  async crear_diagnostico(ct_cod_incidencia: string) {
+    const modal = await this.modalController.create({
+      component: ModalFormDiagnosticosPage,
+      componentProps: {
+        ct_cod_incidencia 
+      }
+    });
+    await modal.present();
+  }
 }

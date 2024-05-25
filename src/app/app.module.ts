@@ -10,12 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { FormModalIncidentesComponent } from './form-modal-incidentes/form-modal-incidentes.component';
-
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormModalIncidentesComponent
+    FormModalIncidentesComponent,
+    MenuComponent
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

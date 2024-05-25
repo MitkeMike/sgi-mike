@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>modal_form_diagnosticos</ion-title>
+    <ion-title>
+      Crear Diagnóstico
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar_modal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">modal_form_diagnosticos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-item>
+    <ion-label position="stacked">Descripción del diagnóstico</ion-label>
+    <ion-textarea [(ngModel)]="ct_descripcion_diagnostico" rows="4"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Tiempo estimado de solución (minutos)</ion-label>
+    <ion-input type="number" [(ngModel)]="cn_tiempo_estimado_solucion"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Observaciones</ion-label>
+    <ion-textarea [(ngModel)]="ct_observaciones" rows="4"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="crear_diagnostico()">Crear Diagnóstico</ion-button>
 </ion-content>
+

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   private usuario_en_sesion_aux= new BehaviorSubject<any>(null);
   public usuario_en_sesion = this.usuario_en_sesion_aux.asObservable();
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private router:Router,private http: HttpClient, private alertController: AlertController) { }
 
   async login(ct_correo: string, ct_password: string): Promise<any> {
     try {
@@ -55,5 +56,6 @@ export class AuthService {
   async cerrar_sesion() {
     localStorage.removeItem(this.tokenKey);
     this.usuario_en_sesion_aux.next(null);
+    this.router.navigate(['/login']);
   }
 }

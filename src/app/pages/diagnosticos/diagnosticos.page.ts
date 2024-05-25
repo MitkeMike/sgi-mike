@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Services/auth.service';
 import { DiagnosticosService } from 'src/app/Services/diagnosticos.service';
 import { ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-diagnosticos',
@@ -19,7 +19,8 @@ export class DiagnosticosPage implements OnInit {
     private authService: AuthService, 
     private diagnosticosServices: DiagnosticosService,
     private modalController: ModalController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -65,13 +66,8 @@ export class DiagnosticosPage implements OnInit {
       console.error('Error al obtener los diagnósticos', error);
     }
   }
-
-    /*
-  async abrir_modal() {
-    const modal = await this.modalController.create({
-      component: FormModalDiagnosticosComponent
-    });
-    await modal.present();
+  volver() {
+    this.router.navigate(['/incidentes']);
   }
-*/
+ 
 }
