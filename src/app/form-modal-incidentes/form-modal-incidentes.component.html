@@ -23,6 +23,10 @@
         <ion-label position="floating">¿En qué lugar ocurrió la incidencia?</ion-label>
         <ion-input type="text" [(ngModel)]="ct_lugar_incidencia" name="ct_lugar_incidencia" required></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>Seleccione una imagen</ion-label>
+        <input type="file" (change)="onFileChange($event)" />
+      </ion-item>
       <!-- Agrega más campos según sea necesario -->
     </ion-list>
     <ion-button expand="block" type="submit">Crear Nueva incidencia</ion-button>

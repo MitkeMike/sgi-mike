@@ -30,8 +30,11 @@
           <ion-card-subtitle></ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          {{ incidente.ct_descripcion_incidencia }} <br>
-          {{ incidente.ct_lugar_incidencia }}
+          <p>{{ incidente.ct_descripcion_incidencia }}</p>
+         <br>
+         <p>{{ incidente.ct_lugar_incidencia }}</p>
+         <br>
+          <img *ngIf="incidente.imagen && incidente.imagen.imgUrl" [src]="incidente.imagen.imgUrl" alt="Imagen de la incidencia">
         </ion-card-content>
         <div class="button-container">
           <ion-button class="custom-button" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>

@@ -36,6 +36,7 @@ export class IncidentesPage implements OnInit {
         if (data) {
           this.usuario = data;
           console.log('Usuario en sesión:', data);
+          this.obtener_incidentes(); //Solo si hay un usuario logueado
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -44,14 +45,18 @@ export class IncidentesPage implements OnInit {
         console.error('Error al obtener el usuario en sesión', error);
       }
     );
-    this.obtener_incidentes();
+
   }
 
   async obtener_incidentes() {
     try {
       const response = await this.incidentesServices.obtener_incidentes();
-      this.incidentes = response;
-      console.log('Incidentes obtenidos:', response);
+      if (response) {
+        this.incidentes = response;
+        console.log('Incidentes obtenidos:', response);
+      } else {
+        console.error('No se pudieron obtener los incidentes.');
+      }
     } catch (error) {
       console.error('Error al obtener los incidentes', error);
     }

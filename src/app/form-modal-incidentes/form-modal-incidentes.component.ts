@@ -13,6 +13,7 @@ export class FormModalIncidentesComponent  implements OnInit {
   ct_titulo_incidencia: string = '';
   ct_descripcion_incidencia: string = '';
   ct_lugar_incidencia: string = '';
+  img: File | null = null;
 
   constructor(private authService: AuthService, private modalController: ModalController, private incidentesServices: IncidentesService) { }
 
@@ -42,12 +43,23 @@ export class FormModalIncidentesComponent  implements OnInit {
     this.modalController.dismiss();
   }
 
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.img = event.target.files[0]; // Obtener la imagen seleccionada
+    }
+  }
+
   async onSubmit(event: Event) {
+    if(!this.img) {
+      console.error('Hace falta la imagen');
+      return;
+    }
     try {
       const response = await this.incidentesServices.crear_incidente(this.ct_titulo_incidencia,
         this.usuario.cn_user_id,
         this.ct_descripcion_incidencia, 
-        this.ct_lugar_incidencia);
+        this.ct_lugar_incidencia,
+        this.img);
       console.log(response);
     } catch (error) {
       console.error('Error al enviar el formulario', error);

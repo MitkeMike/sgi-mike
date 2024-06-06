@@ -1,20 +1,23 @@
 .custom-menu {
-    --background: #9EDDFF; /* Cambia este valor al color que desees */
+    --background: #9EDDFF; 
   }
   
   .custom-menu-header {
-    --background: #9EDDFF; /* Asegúrate de que el color del encabezado coincida */
+    --background: #9EDDFF;
   }
   .custom-title {
-    --color: #9EDDFF; /* Cambia este valor al color que desees */
+    --color: #9EDDFF; 
   }
   .custom-menu-content {
-    --background: #9EDDFF; /* Asegúrate de que el color del contenido coincida */
+    --background: #9EDDFF;
   }
   
   .centered-title {
     text-align: center;
     width: 100%;
+  }
+  ion-content {
+    --padding-top: 56px; /* Ajusta el espacio superior */
   }
   
   ion-menu::part(backdrop) {
