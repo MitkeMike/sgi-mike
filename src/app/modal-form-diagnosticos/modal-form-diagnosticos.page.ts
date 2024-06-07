@@ -50,9 +50,18 @@ export class ModalFormDiagnosticosPage implements OnInit {
 
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      this.img = event.target.files[0]; // Obtener la imagen seleccionada
+      const file = event.target.files[0];
+      this.img = file;
+  
+      // Actualiza el texto del span para mostrar el nombre del archivo
+      const fileNameSpan = document.getElementById('fileName');
+      if (fileNameSpan) {
+        fileNameSpan.textContent = file.name;
+      }
     }
   }
+  
+  
 
   async crear_diagnostico() {
     if(!this.img) {
