@@ -14,6 +14,7 @@ export class ModalFormDiagnosticosPage implements OnInit {
   cn_tiempo_estimado_solucion: number = 0;
   ct_observaciones: string = '';
   cn_user_id: number = 0;
+  img: File | null = null;
   usuario: any;
   
   constructor(private modalController: ModalController,
@@ -47,7 +48,17 @@ export class ModalFormDiagnosticosPage implements OnInit {
     this.modalController.dismiss();
   }
 
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.img = event.target.files[0]; // Obtener la imagen seleccionada
+    }
+  }
+
   async crear_diagnostico() {
+    if(!this.img) {
+      console.error('Hace falta la imagen');
+      return;
+    }
     try {
       const token = await this.authService.obtener_token();
       if (!token) {
@@ -60,7 +71,8 @@ export class ModalFormDiagnosticosPage implements OnInit {
         this.usuario.cn_user_id,
         this.ct_descripcion_diagnostico,
         this.cn_tiempo_estimado_solucion,
-        this.ct_observaciones
+        this.ct_observaciones,
+        this.img
       );
       this.cerrar_modal();
     } catch (error) {

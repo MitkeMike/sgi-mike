@@ -30,10 +30,14 @@
           <ion-card-title>Problemas a destacar en el diagnostico.</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{ diagnostico.ct_descripcion_diagnostico }}
+          <p>{{ diagnostico.ct_descripcion_diagnostico }}</p>
           <br>
-         La incidencia tendra una solucion estimada de: {{ diagnostico.cn_tiempo_estimado_solucion }} <br>
-          {{ diagnostico.ct_observaciones }}
+         <p>La incidencia tendra una solucion estimada de: {{ diagnostico.cn_tiempo_estimado_solucion }} </p>
+          <br>
+          <p>{{ diagnostico.ct_observaciones }} </p>
+          <br>
+          <img *ngIf="diagnostico.imagen && diagnostico.imagen.imgUrl" [src]="diagnostico.imagen.imgUrl" alt="Imagen del diagnostico">
+          
         </ion-card-content>
       </ion-card>
     </ng-container>

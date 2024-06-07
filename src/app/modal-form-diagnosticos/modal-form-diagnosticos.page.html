@@ -27,6 +27,11 @@
     <ion-textarea [(ngModel)]="ct_observaciones" rows="4"></ion-textarea>
   </ion-item>
 
+  <ion-item>
+    <ion-label>Seleccione una imagen</ion-label>
+    <input type="file" (change)="onFileChange($event)" />
+  </ion-item>
+
   <ion-button expand="block" (click)="crear_diagnostico()">Crear Diagnóstico</ion-button>
 </ion-content>
 
