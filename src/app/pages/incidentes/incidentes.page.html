@@ -37,8 +37,8 @@
           <img *ngIf="incidente.imagen && incidente.imagen.imgUrl" [src]="incidente.imagen.imgUrl" alt="Imagen de la incidencia">
         </ion-card-content>
         <div class="button-container">
-          <ion-button class="custom-button" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
-          <ion-button class="custom-button" fill="clear" [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
+          <ion-button class="btn btn-primary" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
+          <ion-button class="btn btn-info" fill="clear" [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
         </div>
       </ion-card>
     </ng-container>

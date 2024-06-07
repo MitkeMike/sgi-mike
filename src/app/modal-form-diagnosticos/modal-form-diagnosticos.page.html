@@ -18,7 +18,7 @@
   </ion-item>
 
   <ion-item>
-    <ion-label position="stacked">Tiempo estimado de solución (minutos)</ion-label>
+    <ion-label position="stacked">Tiempo estimado de solución (Horas)</ion-label>
     <ion-input type="number" [(ngModel)]="cn_tiempo_estimado_solucion"></ion-input>
   </ion-item>
 
@@ -27,10 +27,10 @@
     <ion-textarea [(ngModel)]="ct_observaciones" rows="4"></ion-textarea>
   </ion-item>
 
-  <ion-item>
-    <ion-label>Seleccione una imagen</ion-label>
-    <input type="file" (change)="onFileChange($event)" />
-  </ion-item>
+  <ion-item class="d-block">
+    <ion-label class="mb-2">Seleccione una imagen</ion-label>
+    <input type="file" class="form-control-file" (change)="onFileChange($event)" />
+  </ion-item>  
 
   <ion-button expand="block" (click)="crear_diagnostico()">Crear Diagnóstico</ion-button>
 </ion-content>

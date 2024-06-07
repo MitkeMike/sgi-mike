@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'modal-form-diagnosticos',
     loadChildren: () => import('./modal-form-diagnosticos/modal-form-diagnosticos.module').then( m => m.ModalFormDiagnosticosPageModule)
+  },  {
+    path: 'asignar-incidencia',
+    loadChildren: () => import('./pages/asignar-incidencia/asignar-incidencia.module').then( m => m.AsignarIncidenciaPageModule)
   },
+
 
 
 
