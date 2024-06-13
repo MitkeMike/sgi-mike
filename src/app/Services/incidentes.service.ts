@@ -65,5 +65,40 @@ export class IncidentesService {
       return null;
     }
   }
+
+  async actualizar_incidente(
+    ct_cod_incidencia: string, 
+    cn_user_id: number, 
+    afectacion: number, 
+    categoria: number, 
+    estado: number, 
+    riesgo: number, 
+    prioridad: number): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      const body = {
+        ct_cod_incidencia,
+        cn_user_id,
+        afectacion,
+        categoria,
+        estado,
+        riesgo,
+        prioridad
+      };
+
+      const response: any = await this.http.post(`${this.apiURL}incidencias/actualizar`, body, { headers }).toPromise();
+      return response;
+
+    } catch (error) {
+      console.error('Error al actualizar el incidente', error);
+      return null;
+    }
+  }
+
+
 }
 

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { AdminService } from 'src/app/Services/admin.service';
+import { IncidentesService } from 'src/app/Services/incidentes.service';
 @Component({
   selector: 'app-asignar-incidencia',
   templateUrl: './asignar-incidencia.page.html',
@@ -15,13 +17,29 @@ export class AsignarIncidenciaPage implements OnInit {
   riesgos: any [] = [];
   prioridades: any [] = [];
   tecnicos: any [] = [];
+  ct_cod_incidencia: string = '';
+  selectedAfectacion: any;
+  selectedCategoria: any;
+  selectedEstados: any;
+  selectedRiesgos: any;
+  selectedPrioridades: any;
+  selectedTecnicos: any;
   constructor(
+    private route: ActivatedRoute,
     private adminService: AdminService,
     private authService: AuthService,
+    private incidentesService: IncidentesService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(
   ) {
+    const id = this.route.snapshot.paramMap.get('ct_cod_incidencia');
+    if (id) {
+      this.ct_cod_incidencia = id;
+    } else {
+      console.error('No se recibió el código de la incidencia');
+    }
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
@@ -55,7 +73,7 @@ export class AsignarIncidenciaPage implements OnInit {
     try {
       const response = await this.adminService.obtener_afectaciones();
       if (response) {
-        this.afectaciones = response;
+        this.afectaciones = response;        
       } else {
         console.error('No se pudieron obtener las afectaciones.');
       }
@@ -69,6 +87,7 @@ export class AsignarIncidenciaPage implements OnInit {
       const response =  await this.adminService.obtener_categorias();
       if(response) {
         this.categorias = response;
+        
       } else {
         console.error('No se pudieron obtener las categorías.');
       }
@@ -82,6 +101,7 @@ export class AsignarIncidenciaPage implements OnInit {
       const response = await this.adminService.obtener_estados();
       if(response) {
         this.estados = response;
+        
       } else {
         console.error('No se pudieron obtener los estados.');
       }
@@ -94,7 +114,7 @@ export class AsignarIncidenciaPage implements OnInit {
     try {
       const response = await this.adminService.obtener_riesgos();
       if(response) {
-        this.riesgos = response;        
+        this.riesgos = response;                
       } else {
         console.error('No se pudieron obtener los riesgos.');
       }
@@ -107,7 +127,9 @@ export class AsignarIncidenciaPage implements OnInit {
     try {
       const response = await this.adminService.obtener_prioridades();
       if(response) {
-        this.prioridades = response;        
+        this.prioridades = response;   
+        console.log('Prioridades:', this.prioridades);
+             
       } else {
         console.error('No se pudieron obtener las prioridades.');
       }
@@ -129,6 +151,32 @@ export class AsignarIncidenciaPage implements OnInit {
     } catch (error) {
       console.error('Error al obtener los técnicos:', error);
     }
+  }
+  asignar_incidencia() {
+    const incidenciaData = {
+      ct_cod_incidencia: this.ct_cod_incidencia,  
+      cn_user_id: this.selectedTecnicos,  
+      afectacion: this.selectedAfectacion,
+      categoria: this.selectedCategoria,
+      estado: this.selectedEstados,
+      riesgo: this.selectedRiesgos,
+      prioridad: this.selectedPrioridades
+    };
+    console.log('Incidencia a asignar:', incidenciaData);
+    
+    this.incidentesService.actualizar_incidente(
+      incidenciaData.ct_cod_incidencia,
+      incidenciaData.cn_user_id,
+      incidenciaData.afectacion,
+      incidenciaData.categoria,
+      incidenciaData.estado,
+      incidenciaData.riesgo,
+      incidenciaData.prioridad
+    ).then(response => {
+      console.log('Respuesta del servidor:', response);
+    }).catch(error => {
+      console.error('Error:', error);
+    });
   }
 
 }

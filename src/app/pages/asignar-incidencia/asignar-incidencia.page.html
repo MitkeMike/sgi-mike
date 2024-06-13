@@ -1,13 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>asignar_incidencia</ion-title>
+    <ion-title>asignar incidencia</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">asignar_incidencia</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Main Content -->
+  <div class="ion-page" id="main-content">
+    <ion-content>
+      <form (ngSubmit)="asignar_incidencia()">
+        <ion-item>
+          <ion-label>Afectación</ion-label>
+          <ion-select [(ngModel)]="selectedAfectacion" name="afectacion" placeholder="Selecciona una afectación">
+            <ion-select-option *ngFor="let afectacion of afectaciones" [value]="afectacion.cn_id_afectacion">
+              {{ afectacion.ct_descripcion_afectacion }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Categoria</ion-label>
+          <ion-select [(ngModel)]="selectedCategoria" name="categoria" placeholder="Selecciona una Categoria">
+            <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.cn_id_categoria">
+              {{ categoria.ct_descripcion_categoria }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Estados</ion-label>
+          <ion-select [(ngModel)]="selectedEstados" name="estado" placeholder="Selecciona el Estado de la incidencia">
+            <ion-select-option *ngFor="let estado of estados" [value]="estado.cn_id_estado">
+              {{ estado.ct_descripcion_estado }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Riesgos</ion-label>
+          <ion-select [(ngModel)]="selectedRiesgos" name="riesgo" placeholder="Seleccione el Riesgo de la incidencia">
+            <ion-select-option *ngFor="let riesgo of riesgos" [value]="riesgo.cn_id_riesgo">
+              {{ riesgo.ct_descripcion_riesgo }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Prioridades</ion-label>
+          <ion-select [(ngModel)]="selectedPrioridades" name="prioridad" placeholder="Seleccione la Prioridad de la incidencia">
+            <ion-select-option *ngFor="let prioridad of prioridades" [value]="prioridad.cn_id_prioridad">
+              {{ prioridad.ct_descripcion_prioridad }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Técnicos</ion-label>
+          <ion-select [(ngModel)]="selectedTecnicos" name="tecnico" placeholder="Seleccione El Técnico de la incidencia">
+            <ion-select-option *ngFor="let tecnico of tecnicos" [value]="tecnico.cn_user_id">
+              {{ tecnico.ct_nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="full" type="submit">Asignar Incidencia</ion-button>
+        <ion-button expand="full" [routerLink]="['/incidentes']" type="submit">Volver al Menu de Inicio</ion-button>
+      </form>
+    </ion-content>
+  </div>
 </ion-content>
