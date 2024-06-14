@@ -37,3 +37,9 @@
 @import "@ionic/angular/css/palettes/dark.system.css";
 @import "node_modules/bootstrap/scss/bootstrap";
 
+/* global.scss */
+.toast-success {
+    --background: #28a745; /* Verde */
+    --color: white; /* Texto en blanco */
+  }
+  

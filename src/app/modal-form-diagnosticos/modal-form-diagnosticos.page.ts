@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthService } from '../Services/auth.service';
 import { DiagnosticosService } from '../Services/diagnosticos.service';
 
@@ -16,10 +16,13 @@ export class ModalFormDiagnosticosPage implements OnInit {
   cn_user_id: number = 0;
   img: File | null = null;
   usuario: any;
-  
-  constructor(private modalController: ModalController,
+  showToast: boolean = false;
+
+  constructor(
+    private modalController: ModalController,
     private authService: AuthService,
-    private diagnosticosService: DiagnosticosService
+    private diagnosticosService: DiagnosticosService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -60,11 +63,9 @@ export class ModalFormDiagnosticosPage implements OnInit {
       }
     }
   }
-  
-  
 
   async crear_diagnostico() {
-    if(!this.img) {
+    if (!this.img) {
       console.error('Hace falta la imagen');
       return;
     }
@@ -83,12 +84,19 @@ export class ModalFormDiagnosticosPage implements OnInit {
         this.ct_observaciones,
         this.img
       );
+      this.presentToast();
       this.cerrar_modal();
     } catch (error) {
       console.error('Error al crear el diagnóstico', error);
     }
-
   }
 
-
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Se ha creado con éxito',
+      duration: 2000,
+      color: 'success'
+    });
+    toast.present();
+  }
 }

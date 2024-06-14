@@ -8,18 +8,6 @@
 </ion-header>
 
 <ion-app>
-  <!-- Menu Component -->
-  <ion-menu contentId="main-content" class="custom-menu">
-    <ion-header class="custom-menu-header">
-      <ion-toolbar color="tertiary">
-        <ion-title class="custom-title">¿Qué deseas visualizar?</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="custom-menu-content ion-padding">
-      This is the menu content.
-    </ion-content>
-  </ion-menu>
-
   <!-- Main Content -->
   <div class="ion-page" id="main-content">
   <ion-content [fullscreen]="true">
@@ -36,11 +24,11 @@
          <br>
           <img *ngIf="incidente.imagen && incidente.imagen.imgUrl" [src]="incidente.imagen.imgUrl" alt="Imagen de la incidencia">
         </ion-card-content>
-        <div class="button-container">
-          <ion-button class="btn btn-primary" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
-          <ion-button class="btn btn-info" fill="clear" [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
-          <ion-button class="btn btn-warning" fill="clear" [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
-        </div>
+        <div class="button-container d-flex flex-column">
+          <ion-button class="btn btn-primary w-100 mb-2" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
+          <ion-button class="btn btn-info w-100 mb-2" fill="clear" [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
+          <ion-button class="btn btn-warning w-100" fill="clear" [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
+        </div>        
       </ion-card>
     </ng-container>
     <ng-template #noIncidentes>

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>asignar incidencia</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Asignar Incidencia</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +11,7 @@
   <!-- Main Content -->
   <div class="ion-page" id="main-content">
     <ion-content>
-      <form (ngSubmit)="asignar_incidencia()">
+      <form #incidenciaForm="ngForm" (ngSubmit)="asignar_incidencia()">
         <ion-item>
           <ion-label>Afectación</ion-label>
           <ion-select [(ngModel)]="selectedAfectacion" name="afectacion" placeholder="Selecciona una afectación">
@@ -47,7 +50,8 @@
 
         <ion-item>
           <ion-label>Prioridades</ion-label>
-          <ion-select [(ngModel)]="selectedPrioridades" name="prioridad" placeholder="Seleccione la Prioridad de la incidencia">
+          <ion-select [(ngModel)]="selectedPrioridades" name="prioridad"
+            placeholder="Seleccione la Prioridad de la incidencia">
             <ion-select-option *ngFor="let prioridad of prioridades" [value]="prioridad.cn_id_prioridad">
               {{ prioridad.ct_descripcion_prioridad }}
             </ion-select-option>
@@ -56,15 +60,18 @@
 
         <ion-item>
           <ion-label>Técnicos</ion-label>
-          <ion-select [(ngModel)]="selectedTecnicos" name="tecnico" placeholder="Seleccione El Técnico de la incidencia">
+          <ion-select [(ngModel)]="selectedTecnicos" name="tecnico"
+            placeholder="Seleccione El Técnico de la incidencia">
             <ion-select-option *ngFor="let tecnico of tecnicos" [value]="tecnico.cn_user_id">
               {{ tecnico.ct_nombre }}
             </ion-select-option>
           </ion-select>
         </ion-item>
 
-        <ion-button expand="full" type="submit">Asignar Incidencia</ion-button>
-        <ion-button expand="full" [routerLink]="['/incidentes']" type="submit">Volver al Menu de Inicio</ion-button>
+        <div class="button-container d-flex flex-column">
+          <ion-button class="btn btn-success w-100 mb-2" fill="clear" type="submit" [disabled]="!isFormValid()">Asignar Incidencia</ion-button>
+          <ion-button class="btn btn-warning w-100" fill="clear" (click)="resetForm(incidenciaForm)" [routerLink]="['/incidentes']" type="button">Volver al Menu de Inicio</ion-button>
+        </div>
       </form>
     </ion-content>
   </div>

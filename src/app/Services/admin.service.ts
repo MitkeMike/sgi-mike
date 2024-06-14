@@ -88,4 +88,31 @@ export class AdminService {
       console.error('Error al obtener los técnicos', error);
     }
   }
+
+  async crear_usuario(
+    ct_nombre:string,
+    ct_cedula:string,
+    ct_puesto:string,
+    ct_correo:string,
+    ct_password:string
+  ): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const body = {
+        ct_nombre,
+        ct_cedula,
+        ct_puesto,
+        ct_correo,
+        ct_password
+      };
+      const response: any = await this.http.post(`${this.apiURL}usuarios`, body, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al crear el usuario', error);
+      return null;
+    }
+  }
 }

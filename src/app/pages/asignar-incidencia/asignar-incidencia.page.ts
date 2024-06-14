@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/Services/auth.service';
 import { AdminService } from 'src/app/Services/admin.service';
 import { IncidentesService } from 'src/app/Services/incidentes.service';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-asignar-incidencia',
   templateUrl: './asignar-incidencia.page.html',
@@ -24,6 +26,7 @@ export class AsignarIncidenciaPage implements OnInit {
   selectedRiesgos: any;
   selectedPrioridades: any;
   selectedTecnicos: any;
+
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
@@ -32,8 +35,7 @@ export class AsignarIncidenciaPage implements OnInit {
     private cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit(
-  ) {
+  ngOnInit() {
     const id = this.route.snapshot.paramMap.get('ct_cod_incidencia');
     if (id) {
       this.ct_cod_incidencia = id;
@@ -58,7 +60,6 @@ export class AsignarIncidenciaPage implements OnInit {
           this.obtener_prioridades();
           this.obtener_tecnicos();
           console.log('Obteniendo afectaciones', this.obtener_afectaciones());
-
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -84,10 +85,9 @@ export class AsignarIncidenciaPage implements OnInit {
 
   async obtener_categorias() {
     try {
-      const response =  await this.adminService.obtener_categorias();
-      if(response) {
+      const response = await this.adminService.obtener_categorias();
+      if (response) {
         this.categorias = response;
-        
       } else {
         console.error('No se pudieron obtener las categorías.');
       }
@@ -99,9 +99,8 @@ export class AsignarIncidenciaPage implements OnInit {
   async obtener_estados() {
     try {
       const response = await this.adminService.obtener_estados();
-      if(response) {
+      if (response) {
         this.estados = response;
-        
       } else {
         console.error('No se pudieron obtener los estados.');
       }
@@ -113,7 +112,7 @@ export class AsignarIncidenciaPage implements OnInit {
   async obtener_riesgos() {
     try {
       const response = await this.adminService.obtener_riesgos();
-      if(response) {
+      if (response) {
         this.riesgos = response;                
       } else {
         console.error('No se pudieron obtener los riesgos.');
@@ -126,10 +125,9 @@ export class AsignarIncidenciaPage implements OnInit {
   async obtener_prioridades() {
     try {
       const response = await this.adminService.obtener_prioridades();
-      if(response) {
-        this.prioridades = response;   
+      if (response) {
+        this.prioridades = response;
         console.log('Prioridades:', this.prioridades);
-             
       } else {
         console.error('No se pudieron obtener las prioridades.');
       }
@@ -141,10 +139,9 @@ export class AsignarIncidenciaPage implements OnInit {
   async obtener_tecnicos() {
     try {
       const response = await this.adminService.obtener_tecnicos();
-      if(response) {
-        this.tecnicos = response;   
+      if (response) {
+        this.tecnicos = response;
         console.log('Técnicos:', this.tecnicos);
-             
       } else {
         console.error('No se pudieron obtener los técnicos.');
       }
@@ -152,10 +149,16 @@ export class AsignarIncidenciaPage implements OnInit {
       console.error('Error al obtener los técnicos:', error);
     }
   }
+
+  isFormValid(): boolean {
+    return this.selectedAfectacion && this.selectedCategoria && this.selectedEstados &&
+      this.selectedRiesgos && this.selectedPrioridades && this.selectedTecnicos;
+  }
+
   asignar_incidencia() {
     const incidenciaData = {
-      ct_cod_incidencia: this.ct_cod_incidencia,  
-      cn_user_id: this.selectedTecnicos,  
+      ct_cod_incidencia: this.ct_cod_incidencia,
+      cn_user_id: this.selectedTecnicos,
       afectacion: this.selectedAfectacion,
       categoria: this.selectedCategoria,
       estado: this.selectedEstados,
@@ -163,7 +166,7 @@ export class AsignarIncidenciaPage implements OnInit {
       prioridad: this.selectedPrioridades
     };
     console.log('Incidencia a asignar:', incidenciaData);
-    
+
     this.incidentesService.actualizar_incidente(
       incidenciaData.ct_cod_incidencia,
       incidenciaData.cn_user_id,
@@ -179,4 +182,7 @@ export class AsignarIncidenciaPage implements OnInit {
     });
   }
 
+  resetForm(form: NgForm) {
+    form.resetForm();
+  }
 }

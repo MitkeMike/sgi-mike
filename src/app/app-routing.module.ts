@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'asignar-incidencia/:ct_cod_incidencia',
     loadChildren: () => import('./pages/asignar-incidencia/asignar-incidencia.module').then( m => m.AsignarIncidenciaPageModule)
+  },  {
+    path: 'crear-usuario',
+    loadChildren: () => import('./pages/crear-usuario/crear-usuario.module').then( m => m.CrearUsuarioPageModule)
   },
+
 
 
 
