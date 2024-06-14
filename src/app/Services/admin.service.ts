@@ -139,5 +139,37 @@ export class AdminService {
     return this.http.post(`${this.apiURL}usuarios/buscar-usuario`, body, { headers });
   }
 
+  async obtener_roles(): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const response: any = await this.http.get(`${this.apiURL}admin/roles`, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al obtener los roles', error);
+    }
+  }
+  
+
+      async asignar_roles(cn_user_id: number, roles: any[]): Promise<any> {
+        try {
+          const token = localStorage.getItem(this.tokenKey);
+          const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          });
+            const body = {
+                cn_id_usuario: cn_user_id,
+                roles
+            };
+            const response: any = await this.http.post(`${this.apiURL}admin/asignar-roles`, body, { headers }).toPromise();
+            return response;
+        } catch (error) {
+            console.error('Error al asignar los roles', error);
+            throw error;
+        }
+    }
+    
 
 }

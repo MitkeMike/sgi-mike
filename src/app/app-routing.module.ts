@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: 'asignar-incidencia/:ct_cod_incidencia',
     loadChildren: () => import('./pages/asignar-incidencia/asignar-incidencia.module').then( m => m.AsignarIncidenciaPageModule)
-  },  {
+  },
+  {
     path: 'crear-usuario',
     loadChildren: () => import('./pages/crear-usuario/crear-usuario.module').then( m => m.CrearUsuarioPageModule)
   },
@@ -35,11 +36,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mostrar-usuarios/mostrar-usuarios.module').then( m => m.MostrarUsuariosPageModule)
   },
   {
-    path: 'modal-form-anadir-rol',
+    path: 'modal-form-anadir-rol:cn_user_id',
     loadChildren: () => import('./modal-form-anadir-rol/modal-form-anadir-rol.module').then( m => m.ModalFormAnadirRolPageModule)
   },
   {
-    path: 'modal-form-eliminar-rol',
+    path: 'modal-form-eliminar-rol:cn_user_id',
     loadChildren: () => import('./modal-form-eliminar-rol/modal-form-eliminar-rol.module').then( m => m.ModalFormEliminarRolPageModule)
   },
 

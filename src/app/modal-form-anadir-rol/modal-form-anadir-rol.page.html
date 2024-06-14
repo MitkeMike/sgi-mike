@@ -8,12 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <!-- Aquí puedes agregar el formulario o contenido para asignar roles -->
   <ion-item>
     <ion-label>Roles</ion-label>
-    <ion-select multiple="true">
-      <ion-select-option > rol.nombre </ion-select-option>
+    <ion-select [(ngModel)]="roles_seleccionados"  multiple="true">
+      <ion-select-option *ngFor="let rol of roles" [value]="rol.cn_id_rol" > {{rol.ct_descripcion}} </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button expand="block" >Asignar</ion-button>
+  <ion-button expand="block" (click)="anadir_roles()">Asignar</ion-button>
 </ion-content>
