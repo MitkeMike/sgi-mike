@@ -20,7 +20,7 @@ export class ModalFormAnadirRolPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cn_user_id = this.navParams.get('cn_user_id');  // Obtener el id pasado desde la ruta
+    this.cn_user_id = this.navParams.get('cn_user_id');  
     this.obtener_roles();
   }
 
@@ -35,7 +35,7 @@ export class ModalFormAnadirRolPage implements OnInit {
 
   async anadir_roles() {
     console.log('Roles seleccionados', this.roles_seleccionados);
-    const roles = this.roles_seleccionados.map(rol => rol.cn_id_rol);
+    const roles = this.roles_seleccionados;
     try {
       const response = await this.adminService.asignar_roles(this.cn_user_id, roles);
       if (response) {
