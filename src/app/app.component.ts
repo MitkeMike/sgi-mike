@@ -21,4 +21,8 @@ export class AppComponent {
   async ir_a_home() {
     this.router.navigate(['/incidentes']);
   }
+
+  async ver_usuarios() {
+    this.router.navigate(['/mostrar-usuarios']);
+  }
 }

@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="centered-title">Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-app>
+  <!-- Main Content -->
+  <div class="ion-page" id="main-content">
+    <ion-content [fullscreen]="true">
+      <!--Search Bar-->
+      <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar por nombre, correo o cédula"
+        (ionInput)="onSearchChange($event)"></ion-searchbar>
+
+      <ng-container *ngIf="usuarios.length > 0; else noUsuarios">
+        <ion-card *ngFor="let usuario of usuarios">
+          <ion-card-header>
+            <ion-card-title>{{ usuario.ct_nombre }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{usuario.ct_puesto}}</p>
+            <p>Correo: {{ usuario.ct_correo }}</p>
+            <p>Cédula: {{ usuario.ct_cedula }}</p>
+            <ion-button expand="block" (click)="abrirAsignarRolesModal(usuario.cn_user_id)">Asignar Roles</ion-button>
+            <ion-button expand="block" color="danger" (click)="abrirEliminarRolesModal(usuario.cn_user_id)">Eliminar Roles</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+      <ng-template #noUsuarios>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>No hay usuarios registrados.</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Actualmente no hay usuarios para mostrar.
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </ion-content>
+  </div>
+</ion-app>

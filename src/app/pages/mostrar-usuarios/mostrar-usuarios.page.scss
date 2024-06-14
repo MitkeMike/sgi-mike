@@ -1,0 +1,41 @@
+.custom-menu {
+    --background: #9EDDFF; 
+  }
+  
+  .custom-menu-header {
+    --background: #9EDDFF;
+  }
+  .custom-title {
+    --color: #9EDDFF; 
+  }
+  .custom-menu-content {
+    --background: #9EDDFF;
+  }
+  
+  .centered-title {
+    text-align: center;
+    width: 100%;
+  }
+  ion-content {
+    --padding-top: 56px; /* Ajusta el espacio superior */
+  }
+  
+  ion-menu::part(backdrop) {
+    background-color: rgb(158, 221, 255);
+  }
+  
+  ion-menu::part(container) {
+    border-radius: 0 20px 20px 0;
+    box-shadow: 4px 0px 16px rgb(166, 246, 255);
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Espacio superior opcional */
+  }
+
+
+  
+
+  

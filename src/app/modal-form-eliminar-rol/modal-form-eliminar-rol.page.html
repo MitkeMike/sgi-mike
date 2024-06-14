@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Eliminar Roles</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Aquí puedes agregar el formulario o contenido para eliminar roles -->
+  <ion-item>
+    <ion-label>Roles</ion-label>
+    <ion-select multiple="true">
+      <ion-select-option > rol.nombre </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button expand="block" color="danger" >Eliminar</ion-button>
+</ion-content>

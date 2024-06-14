@@ -6,6 +6,8 @@ import { ModalController } from '@ionic/angular';
 import { FormModalIncidentesComponent } from 'src/app/form-modal-incidentes/form-modal-incidentes.component';
 import { Router } from '@angular/router';
 import { ModalFormDiagnosticosPage } from 'src/app/modal-form-diagnosticos/modal-form-diagnosticos.page';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject, of } from 'rxjs';
 
 @Component({
   selector: 'app-incidentes',
@@ -16,6 +18,8 @@ export class IncidentesPage implements OnInit {
 
   usuario: any;
   incidentes: any[] = [];
+  searchTerm: string ='';
+  searchSubject: Subject<string> = new Subject<string>();
   constructor(
     private authService: AuthService,
     private incidentesServices: IncidentesService,
@@ -45,6 +49,28 @@ export class IncidentesPage implements OnInit {
         console.error('Error al obtener el usuario en sesión', error);
       }
     );
+
+    //Busqueda reactiva
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term => {
+        if (term === '') {
+          return of(this.obtener_incidentes());
+        } else {
+          return this.incidentesServices.buscar_incidencia(term, term);
+        }
+      })
+    ).subscribe(
+      response => {
+        this.incidentes = response || [];
+      },
+      error => {
+        console.error('Error al buscar incidencia', error);
+        this.incidentes = [];
+      }
+    );
+
 
   }
 
@@ -82,4 +108,9 @@ export class IncidentesPage implements OnInit {
     });
     await modal.present();
   }
+
+  onSearchChange(event: any) {
+    this.searchSubject.next(event.detail.value);
+  }
+
 }

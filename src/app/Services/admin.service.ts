@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -115,4 +116,28 @@ export class AdminService {
       return null;
     }
   }
+
+  async obtener_usuarios(): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const response: any = await this.http.get(`${this.apiURL}usuarios`, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al obtener los usuarios', error);
+    }
+  }
+
+  buscar_usuarios(term: string): Observable<any> {
+    const token = localStorage.getItem(this.tokenKey);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    const body = { ct_nombre: term, ct_cedula: term, ct_correo: term };
+    return this.http.post(`${this.apiURL}usuarios/buscar-usuario`, body, { headers });
+  }
+
+
 }

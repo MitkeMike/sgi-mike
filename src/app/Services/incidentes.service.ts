@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import {map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,11 +39,11 @@ export class IncidentesService {
     }
   }
 
-  async crear_incidente(ct_titulo_incidencia: string, 
+  async crear_incidente(ct_titulo_incidencia: string,
     cn_user_id: number,
-    ct_descripcion_incidencia: string, 
+    ct_descripcion_incidencia: string,
     ct_lugar_incidencia: string,
-    img:File
+    img: File
   ): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -59,7 +60,7 @@ export class IncidentesService {
 
       const response: any = await this.http.post(`${this.apiURL}incidencias`, formData, { headers }).toPromise();
       return response;
-      
+
     } catch (error) {
       console.error('Error al crear el incidente', error);
       return null;
@@ -67,12 +68,12 @@ export class IncidentesService {
   }
 
   async actualizar_incidente(
-    ct_cod_incidencia: string, 
-    cn_user_id: number, 
-    afectacion: number, 
-    categoria: number, 
-    estado: number, 
-    riesgo: number, 
+    ct_cod_incidencia: string,
+    cn_user_id: number,
+    afectacion: number,
+    categoria: number,
+    estado: number,
+    riesgo: number,
     prioridad: number): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -99,6 +100,21 @@ export class IncidentesService {
     }
   }
 
+  async buscar_incidencia(ct_cod_incidencia?: string, ct_titulo_incidencia?: string): Promise<any> {
+    const url = `${this.apiURL}incidencias/buscar-incidencia`;
+    const body = { ct_cod_incidencia, ct_titulo_incidencia };
+    const token = localStorage.getItem(this.tokenKey);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
+    try {
+      const response = await this.http.post(url, body, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al buscar incidencia', error);
+      throw error;
+    }
+  }
 }
 

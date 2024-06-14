@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Asignar Roles</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Aquí puedes agregar el formulario o contenido para asignar roles -->
+  <ion-item>
+    <ion-label>Roles</ion-label>
+    <ion-select multiple="true">
+      <ion-select-option > rol.nombre </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-button expand="block" >Asignar</ion-button>
+</ion-content>

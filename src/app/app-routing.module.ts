@@ -30,6 +30,18 @@ const routes: Routes = [
     path: 'crear-usuario',
     loadChildren: () => import('./pages/crear-usuario/crear-usuario.module').then( m => m.CrearUsuarioPageModule)
   },
+  {
+    path: 'mostrar-usuarios',
+    loadChildren: () => import('./pages/mostrar-usuarios/mostrar-usuarios.module').then( m => m.MostrarUsuariosPageModule)
+  },
+  {
+    path: 'modal-form-anadir-rol',
+    loadChildren: () => import('./modal-form-anadir-rol/modal-form-anadir-rol.module').then( m => m.ModalFormAnadirRolPageModule)
+  },
+  {
+    path: 'modal-form-eliminar-rol',
+    loadChildren: () => import('./modal-form-eliminar-rol/modal-form-eliminar-rol.module').then( m => m.ModalFormEliminarRolPageModule)
+  },
 
 
 

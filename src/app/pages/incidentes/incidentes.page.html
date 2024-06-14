@@ -10,46 +10,52 @@
 <ion-app>
   <!-- Main Content -->
   <div class="ion-page" id="main-content">
-  <ion-content [fullscreen]="true">
-    <ng-container *ngIf="incidentes.length > 0; else noIncidentes">
-      <ion-card *ngFor="let incidente of incidentes">
-        <ion-card-header>
-          <ion-card-title>{{ incidente.ct_titulo_incidencia }}</ion-card-title>
-          <ion-card-subtitle></ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ incidente.ct_descripcion_incidencia }}</p>
-         <br>
-         <p>{{ incidente.ct_lugar_incidencia }}</p>
-         <br>
-          <img *ngIf="incidente.imagen && incidente.imagen.imgUrl" [src]="incidente.imagen.imgUrl" alt="Imagen de la incidencia">
-        </ion-card-content>
-        <div class="button-container d-flex flex-column">
-          <ion-button class="btn btn-primary w-100 mb-2" fill="clear" (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
-          <ion-button class="btn btn-info w-100 mb-2" fill="clear" [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
-          <ion-button class="btn btn-warning w-100" fill="clear" [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
-        </div>        
-      </ion-card>
-    </ng-container>
-    <ng-template #noIncidentes>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>No hay incidentes registrados.</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Actualmente no hay incidentes para mostrar.
-        </ion-card-content>
-      </ion-card>
-    </ng-template>
-  </ion-content>
+    <ion-content [fullscreen]="true">
+      <!--Search Bar-->
+      <ion-searchbar [(ngModel)]="searchTerm"  placeholder="Buscar por título de la incidencia o código"
+        (ionInput)="onSearchChange($event)"></ion-searchbar>
 
-  <!-- Floating Action Modal Button  -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="abrir_modal()" id="open-modal" size="large"> <!-- Ajusta el tamaño del botón -->
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+      <ng-container *ngIf="incidentes.length > 0; else noIncidentes">
+        <ion-card *ngFor="let incidente of incidentes">
+          <ion-card-header>
+            <ion-card-title>{{ incidente.ct_titulo_incidencia }}</ion-card-title>
+            <ion-card-subtitle></ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ incidente.ct_descripcion_incidencia }}</p>
+            <br>
+            <p>{{ incidente.ct_lugar_incidencia }}</p>
+            <br>
+            <img *ngIf="incidente.imagen && incidente.imagen.imgUrl" [src]="incidente.imagen.imgUrl"
+              alt="Imagen de la incidencia">
+          </ion-card-content>
+          <div class="button-container d-flex flex-column">
+            <ion-button class="btn btn-primary w-100 mb-2" fill="clear"
+              (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
+            <ion-button class="btn btn-info w-100 mb-2" fill="clear"
+              [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
+            <ion-button class="btn btn-warning w-100" fill="clear"
+              [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
+          </div>
+        </ion-card>
+      </ng-container>
+      <ng-template #noIncidentes>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>No hay incidentes registrados.</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Actualmente no hay incidentes para mostrar.
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </ion-content>
 
-
+    <!-- Floating Action Modal Button  -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="abrir_modal()" id="open-modal" size="large">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 </ion-app>
