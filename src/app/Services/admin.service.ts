@@ -77,7 +77,7 @@ export class AdminService {
     }
   }
 
-  async obtener_tecnicos (): Promise<any> {
+  async obtener_tecnicos(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
       const headers = new HttpHeaders({
@@ -91,11 +91,11 @@ export class AdminService {
   }
 
   async crear_usuario(
-    ct_nombre:string,
-    ct_cedula:string,
-    ct_puesto:string,
-    ct_correo:string,
-    ct_password:string
+    ct_nombre: string,
+    ct_cedula: string,
+    ct_puesto: string,
+    ct_correo: string,
+    ct_password: string
   ): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -151,25 +151,56 @@ export class AdminService {
       console.error('Error al obtener los roles', error);
     }
   }
-  
 
-      async asignar_roles(cn_user_id: number, roles: any[]): Promise<any> {
-        try {
-          const token = localStorage.getItem(this.tokenKey);
-          const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-          });
-            const body = {
-                cn_id_usuario: cn_user_id,
-                roles
-            };
-            const response: any = await this.http.post(`${this.apiURL}admin/asignar-roles`, body, { headers }).toPromise();
-            return response;
-        } catch (error) {
-            console.error('Error al asignar los roles', error);
-            throw error;
-        }
+
+  async asignar_roles(cn_user_id: number, roles: any[]): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const body = {
+        cn_id_usuario: cn_user_id,
+        roles
+      };
+      const response: any = await this.http.post(`${this.apiURL}admin/asignar-roles`, body, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al asignar los roles', error);
+      throw error;
     }
-    
+  }
+
+  async roles_por_usuario(cn_id_usuario: number): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const response: any = await this.http.get(`${this.apiURL}admin/usuario-roles/${cn_id_usuario}`, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al obtener los roles del usuario', error);
+      throw error;
+    }
+  }
+
+  async eliminar_roles(cn_user_id: number, roles: any[]): Promise<any> {
+    try {
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const body = {
+        cn_id_usuario: cn_user_id,
+        cn_id_roles: roles
+      };
+      const response: any = await this.http.post(`${this.apiURL}admin/eliminar-roles`, body, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al eliminar los roles', error);
+      throw error;
+    }
+  }
 
 }

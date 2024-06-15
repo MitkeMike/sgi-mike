@@ -44,10 +44,6 @@ const routes: Routes = [
     loadChildren: () => import('./modal-form-eliminar-rol/modal-form-eliminar-rol.module').then( m => m.ModalFormEliminarRolPageModule)
   },
 
-
-
-
-
 ];
 @NgModule({
   imports: [
