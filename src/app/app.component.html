@@ -8,23 +8,28 @@
     </ion-header>
     <ion-content class="custom-menu-content ion-padding">
       <ion-list>
-        <ion-item>
-          <ion-label>Corrigiendo</ion-label>
-        </ion-item>
         <!-- Pagina de Inicio -->
         <ion-item (click)="ir_a_home()">
           <ion-icon slot="start" name="home"></ion-icon>
           <ion-label>Pagina de Inicio.</ion-label>
         </ion-item>
-        <!-- Crear Usuario -->
+        <!-- Crear Usuario 
         <ion-item (click)="ir_a_crear_usuario()">
           <ion-icon slot="start" name="person-circle-outline"></ion-icon>
           <ion-label>Crear Nuevo Usuario.</ion-label>
-        </ion-item>
-        <!-- Listar Usuarios -->
+        </ion-item> -->
+        <!-- Listar Usuarios 
         <ion-item (click)="ver_usuarios()" >
           <ion-icon slot="start" name="people-circle-outline"></ion-icon>
           <ion-label>Ver Usuarios.</ion-label>
+        </ion-item>-->
+        <ion-item  >
+          <ion-icon slot="start" name="document-lock"></ion-icon>
+          <ion-label>Incidencias Asignadas.</ion-label>
+        </ion-item>
+        <ion-item  >
+          <ion-icon slot="start" name="document-lock"></ion-icon>
+          <ion-label>Reportes por Cargas de Trabajo.</ion-label>
         </ion-item>
         <!-- Cerrar sesion -->
         <ion-item (click)="cerrar_sesion()">
