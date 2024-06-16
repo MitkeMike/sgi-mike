@@ -138,17 +138,18 @@ export class AsignarIncidenciaPage implements OnInit {
 
   async obtener_tecnicos() {
     try {
-      const response = await this.adminService.obtener_tecnicos();
-      if (response) {
-        this.tecnicos = response;
-        console.log('Técnicos:', this.tecnicos);
-      } else {
-        console.error('No se pudieron obtener los técnicos.');
-      }
+        const response = await this.adminService.obtener_tecnicos();
+        console.log('Respuesta de obtener_tecnicos en el componente:', response); // Añadido para depuración
+        if (response) {
+            this.tecnicos = response;
+            console.log('Técnicos:', this.tecnicos);
+        } else {
+            console.error('No se pudieron obtener los técnicos.');
+        }
     } catch (error) {
-      console.error('Error al obtener los técnicos:', error);
+        console.error('Error al obtener los técnicos:', error);
     }
-  }
+}
 
   isFormValid(): boolean {
     return this.selectedAfectacion && this.selectedCategoria && this.selectedEstados &&

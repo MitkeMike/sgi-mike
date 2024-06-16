@@ -79,16 +79,18 @@ export class AdminService {
 
   async obtener_tecnicos(): Promise<any> {
     try {
-      const token = localStorage.getItem(this.tokenKey);
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      const response: any = await this.http.get(`${this.apiURL}admin/tecnicos`, { headers }).toPromise();
-      return response;
+        const token = localStorage.getItem(this.tokenKey);
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+        const response: any = await this.http.get(`${this.apiURL}admin/tecnicos`, { headers }).toPromise();
+        console.log('Respuesta de obtener_tecnicos:', response); // Añadido para depuración
+        return response;
     } catch (error) {
-      console.error('Error al obtener los técnicos', error);
+        console.error('Error al obtener los técnicos', error);
+        throw error; // Propagar el error para manejarlo en el componente
     }
-  }
+}
 
   async crear_usuario(
     ct_nombre: string,
