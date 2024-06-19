@@ -35,7 +35,6 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
           this.usuario = data;
           console.log('Usuario en sesión:', data);
           this.obtenerEstadoIncidencia();
-
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -44,7 +43,6 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
         console.error('Error al obtener el usuario en sesión', error);
       }
     );
-
   }
 
   async obtenerEstadoIncidencia() {
@@ -53,13 +51,11 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
       this.estadoActual = response.estadoActual;
       this.estadoSiguiente = response.estadoSiguiente;
       console.log(this.estadoSiguiente);
-      
       console.log('Estados disponibles:', this.estados); // Log para verificar los estados disponibles
     } catch (error) {
       console.error('Error al obtener el estado de la incidencia', error);
     }
   }
-
 
   async cambiarEstadoIncidencia() {
     try {
@@ -78,6 +74,4 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
   cerrarModal() {
     this.modalController.dismiss();
   }
-
-
 }

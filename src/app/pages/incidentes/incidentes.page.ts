@@ -6,9 +6,9 @@ import { ModalController } from '@ionic/angular';
 import { FormModalIncidentesComponent } from 'src/app/form-modal-incidentes/form-modal-incidentes.component';
 import { Router } from '@angular/router';
 import { ModalFormDiagnosticosPage } from 'src/app/modal-form-diagnosticos/modal-form-diagnosticos.page';
-import { ModalCambiarEstadoIncidenciaPage } from 'src/app/modal-cambiar-estado-incidencia/modal-cambiar-estado-incidencia.page';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject, of } from 'rxjs';
+import { ModalCambiarEstadoIncidenciaPage } from 'src/app/modal-cambiar-estado-incidencia/modal-cambiar-estado-incidencia.page';
 
 @Component({
   selector: 'app-incidentes',
