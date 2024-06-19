@@ -6,6 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { FormModalIncidentesComponent } from 'src/app/form-modal-incidentes/form-modal-incidentes.component';
 import { Router } from '@angular/router';
 import { ModalFormDiagnosticosPage } from 'src/app/modal-form-diagnosticos/modal-form-diagnosticos.page';
+import { ModalCambiarEstadoIncidenciaPage } from 'src/app/modal-cambiar-estado-incidencia/modal-cambiar-estado-incidencia.page';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject, of } from 'rxjs';
 
@@ -15,11 +16,11 @@ import { Subject, of } from 'rxjs';
   styleUrls: ['./incidentes.page.scss'],
 })
 export class IncidentesPage implements OnInit {
-
   usuario: any;
   incidentes: any[] = [];
   searchTerm: string ='';
   searchSubject: Subject<string> = new Subject<string>();
+
   constructor(
     private authService: AuthService,
     private incidentesServices: IncidentesService,
@@ -70,8 +71,6 @@ export class IncidentesPage implements OnInit {
         this.incidentes = [];
       }
     );
-
-
   }
 
   async obtener_incidentes() {
@@ -95,6 +94,16 @@ export class IncidentesPage implements OnInit {
     await modal.present();
   }
 
+  async cambiar_estado(ct_cod_incidencia: string) {
+    const modal = await this.modalController.create({
+      component: ModalCambiarEstadoIncidenciaPage,
+      componentProps: {
+        ct_cod_incidencia 
+      }
+    });
+    await modal.present();
+  }
+
   ver_diagnostico(ct_cod_incidencia: string) {
     this.router.navigate(['/diagnosticos', ct_cod_incidencia]);
   }
@@ -112,5 +121,4 @@ export class IncidentesPage implements OnInit {
   onSearchChange(event: any) {
     this.searchSubject.next(event.detail.value);
   }
-
 }

@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'modal-form-eliminar-rol:cn_user_id',
     loadChildren: () => import('./modal-form-eliminar-rol/modal-form-eliminar-rol.module').then( m => m.ModalFormEliminarRolPageModule)
+  },  {
+    path: 'modal-cambiar-estado-incidencia',
+    loadChildren: () => import('./modal-cambiar-estado-incidencia/modal-cambiar-estado-incidencia.module').then( m => m.ModalCambiarEstadoIncidenciaPageModule)
   },
+
 
 ];
 @NgModule({

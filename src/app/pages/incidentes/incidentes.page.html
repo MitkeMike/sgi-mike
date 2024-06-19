@@ -34,6 +34,8 @@
               (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
             <ion-button class="btn btn-info w-100 mb-2" fill="clear"
               [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
+            <ion-button class="btn btn-danger w-100 mb-2" fill="clear"
+              (click)="cambiar_estado(incidente.ct_cod_incidencia)">Cambiar Estado</ion-button>
             <ion-button class="btn btn-warning w-100" fill="clear"
               [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
           </div>

@@ -31,15 +31,6 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>Estados</ion-label>
-          <ion-select [(ngModel)]="selectedEstados" name="estado" placeholder="Selecciona el Estado de la incidencia">
-            <ion-select-option *ngFor="let estado of estados" [value]="estado.cn_id_estado">
-              {{ estado.ct_descripcion_estado }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item>
           <ion-label>Riesgos</ion-label>
           <ion-select [(ngModel)]="selectedRiesgos" name="riesgo" placeholder="Seleccione el Riesgo de la incidencia">
             <ion-select-option *ngFor="let riesgo of riesgos" [value]="riesgo.cn_id_riesgo">

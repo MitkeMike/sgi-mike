@@ -22,7 +22,6 @@ export class AsignarIncidenciaPage implements OnInit {
   ct_cod_incidencia: string = '';
   selectedAfectacion: any;
   selectedCategoria: any;
-  selectedEstados: any;
   selectedRiesgos: any;
   selectedPrioridades: any;
   selectedTecnicos: any;
@@ -152,7 +151,7 @@ export class AsignarIncidenciaPage implements OnInit {
 }
 
   isFormValid(): boolean {
-    return this.selectedAfectacion && this.selectedCategoria && this.selectedEstados &&
+    return this.selectedAfectacion && this.selectedCategoria &&
       this.selectedRiesgos && this.selectedPrioridades && this.selectedTecnicos;
   }
 
@@ -162,7 +161,6 @@ export class AsignarIncidenciaPage implements OnInit {
       cn_user_id: this.selectedTecnicos,
       afectacion: this.selectedAfectacion,
       categoria: this.selectedCategoria,
-      estado: this.selectedEstados,
       riesgo: this.selectedRiesgos,
       prioridad: this.selectedPrioridades
     };
@@ -173,7 +171,6 @@ export class AsignarIncidenciaPage implements OnInit {
       incidenciaData.cn_user_id,
       incidenciaData.afectacion,
       incidenciaData.categoria,
-      incidenciaData.estado,
       incidenciaData.riesgo,
       incidenciaData.prioridad
     ).then(response => {

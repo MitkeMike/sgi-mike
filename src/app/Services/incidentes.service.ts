@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -72,7 +72,6 @@ export class IncidentesService {
     cn_user_id: number,
     afectacion: number,
     categoria: number,
-    estado: number,
     riesgo: number,
     prioridad: number): Promise<any> {
     try {
@@ -86,7 +85,6 @@ export class IncidentesService {
         cn_user_id,
         afectacion,
         categoria,
-        estado,
         riesgo,
         prioridad
       };
@@ -116,5 +114,31 @@ export class IncidentesService {
       throw error;
     }
   }
+
+
+   obtener_estado_incidencia(ct_cod_incidencia: string): Promise <any> {
+    const token = localStorage.getItem(this.tokenKey);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return firstValueFrom(this.http.get(`${this.apiURL}incidencias/estado/${ct_cod_incidencia}`, { headers }));
+  }
+
+
+  cambiar_estado_incidencia(ct_cod_incidencia: string, nuevo_estado: string): Promise<any> {
+    const token = localStorage.getItem(this.tokenKey);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const body = {
+      ct_cod_incidencia,
+      nuevo_estado
+    };
+
+    return firstValueFrom(this.http.post(`${this.apiURL}incidencias/cambiar-estado`, body, { headers }));
+  }
+
 }
 
