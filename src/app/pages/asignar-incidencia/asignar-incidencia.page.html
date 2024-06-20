@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- Main Content -->
   <div class="ion-page" id="main-content">
     <ion-content>
       <form #incidenciaForm="ngForm" (ngSubmit)="asignar_incidencia()">
@@ -57,6 +56,11 @@
               {{ tecnico.ct_nombre }}
             </ion-select-option>
           </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tiempo estimado de reparación</ion-label>
+          <ion-input type="number" [(ngModel)]="tiempoEstimadoReparacion" name="tiempo_estimado_reparacion"></ion-input>
         </ion-item>
 
         <div class="button-container d-flex flex-column">

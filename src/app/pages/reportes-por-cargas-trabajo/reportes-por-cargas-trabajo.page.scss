@@ -1,0 +1,62 @@
+.custom-menu {
+    --background: #9EDDFF; 
+  }
+  
+  .custom-menu-header {
+    --background: #9EDDFF;
+  }
+  .custom-title {
+    --color: #9EDDFF; 
+  }
+  .custom-menu-content {
+    --background: #9EDDFF;
+  }
+  
+  .centered-title {
+    text-align: center;
+    width: 100%;
+  }
+  ion-content {
+    --padding-top: 56px; /* Ajusta el espacio superior */
+  }
+  
+  ion-menu::part(backdrop) {
+    background-color: rgb(158, 221, 255);
+  }
+  
+  ion-menu::part(container) {
+    border-radius: 0 20px 20px 0;
+    box-shadow: 4px 0px 16px rgb(166, 246, 255);
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Espacio superior opcional */
+  }
+  ion-fab-button {
+    --background: #A6F6FF; /* Color de fondo por defecto */
+    --color: white; /* Color del texto */
+    --border-radius: 50%; /* Bordes redondeados */
+    margin-left: 10px; /* Espacio entre botones */
+  }
+  ion-fab-button:hover {
+    --background: #6499E9; /* Color de fondo al pasar el mouse */
+  }
+  
+  .custom-button {
+    --border-radius: 50%;
+    --background: #A6F6FF; /* Color de fondo por defecto */
+    --color: white; /* Color del texto */
+    margin-left: 10px; /* Espacio entre botones */
+    width: 100px; /* Ajusta el ancho del botón */
+    height: 60px; /* Ajusta la altura del botón */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-button:hover {
+    --background: #6499E9; /* Color de fondo al pasar el mouse */
+  }
+  

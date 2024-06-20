@@ -25,6 +25,7 @@ export class AsignarIncidenciaPage implements OnInit {
   selectedRiesgos: any;
   selectedPrioridades: any;
   selectedTecnicos: any;
+  tiempoEstimadoReparacion: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -162,23 +163,26 @@ export class AsignarIncidenciaPage implements OnInit {
       afectacion: this.selectedAfectacion,
       categoria: this.selectedCategoria,
       riesgo: this.selectedRiesgos,
-      prioridad: this.selectedPrioridades
+      prioridad: this.selectedPrioridades,
+      tiempo_estimado_reparacion: this.tiempoEstimadoReparacion // Añadir el nuevo campo
     };
     console.log('Incidencia a asignar:', incidenciaData);
-
+  
     this.incidentesService.actualizar_incidente(
       incidenciaData.ct_cod_incidencia,
       incidenciaData.cn_user_id,
       incidenciaData.afectacion,
       incidenciaData.categoria,
       incidenciaData.riesgo,
-      incidenciaData.prioridad
+      incidenciaData.prioridad,
+      incidenciaData.tiempo_estimado_reparacion // Pasar el nuevo campo
     ).then(response => {
       console.log('Respuesta del servidor:', response);
     }).catch(error => {
       console.error('Error:', error);
     });
   }
+  
 
   resetForm(form: NgForm) {
     form.resetForm();

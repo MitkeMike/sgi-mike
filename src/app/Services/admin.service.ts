@@ -77,6 +77,19 @@ export class AdminService {
     }
   }
 
+  async reporte_por_horas_trabajadas(): Promise<any> {
+    try{
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const response: any = await this.http.get(`${this.apiURL}admin/reporte-horas-trabajadas`, { headers }).toPromise();
+      return response;
+    } catch (error) {
+      console.error('Error al obtener los reportes', error)
+    }
+  }
+
   async obtener_tecnicos(): Promise<any> {
     try {
         const token = localStorage.getItem(this.tokenKey);

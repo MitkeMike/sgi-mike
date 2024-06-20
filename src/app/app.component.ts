@@ -25,4 +25,8 @@ export class AppComponent {
   async ver_usuarios() {
     this.router.navigate(['/mostrar-usuarios']);
   }
+
+  async ver_reportes_por_carga_trabajo() {
+    this.router.navigate(['/reportes-por-cargas-trabajo'])
+  }
 }

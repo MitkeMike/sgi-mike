@@ -73,30 +73,34 @@ export class IncidentesService {
     afectacion: number,
     categoria: number,
     riesgo: number,
-    prioridad: number): Promise<any> {
+    prioridad: number,
+    tiempo_estimado_reparacion: number // Añadir el nuevo parámetro
+  ): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-
+  
       const body = {
         ct_cod_incidencia,
         cn_user_id,
         afectacion,
         categoria,
         riesgo,
-        prioridad
+        prioridad,
+        tiempo_estimado_reparacion // Añadir el nuevo campo al cuerpo de la solicitud
       };
-
+  
       const response: any = await this.http.post(`${this.apiURL}incidencias/actualizar`, body, { headers }).toPromise();
       return response;
-
+  
     } catch (error) {
       console.error('Error al actualizar el incidente', error);
       return null;
     }
   }
+  
 
   async buscar_incidencia(ct_cod_incidencia?: string, ct_titulo_incidencia?: string): Promise<any> {
     const url = `${this.apiURL}incidencias/buscar-incidencia`;

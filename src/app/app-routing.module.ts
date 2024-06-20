@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'modal-cambiar-estado-incidencia',
     loadChildren: () => import('./modal-cambiar-estado-incidencia/modal-cambiar-estado-incidencia.module').then( m => m.ModalCambiarEstadoIncidenciaPageModule)
   },
+  {
+    path: 'reportes-por-cargas-trabajo',
+    loadChildren: () => import('./pages/reportes-por-cargas-trabajo/reportes-por-cargas-trabajo.module').then( m => m.ReportesPorCargasTrabajoPageModule)
+  },
 
 
 ];

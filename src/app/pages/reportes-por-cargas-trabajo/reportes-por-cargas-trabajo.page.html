@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reportes Por carga de Trabajo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-app>
+  <!-- Main Content -->
+  <div class="ion-page" id="main-content">
+    <ion-content [fullscreen]="true">
+      <ng-container *ngIf="reportes.length > 0 else noReportes">
+        <ion-card *ngFor="let reporte of reportes">
+          <ion-card-header>
+            <ion-card-title>Reporte de: {{reporte.ct_nombre}}</ion-card-title>
+            <ion-card-subtitle>Total de horas trabajadas: {{reporte.total_horas_trabajadas}}</ion-card-subtitle>
+          </ion-card-header>
+          <div class="button-container d-flex flex-column">
+
+          </div>
+        </ion-card>
+      </ng-container>
+      <ng-template #noReportes>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>No hay reportes para mostrar.</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Actualmente no hay reportes para mostrar.
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+    </ion-content>
+
+
+  </div>
+</ion-app>
