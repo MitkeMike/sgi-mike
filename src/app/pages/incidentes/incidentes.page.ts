@@ -18,8 +18,9 @@ import { ModalCambiarEstadoIncidenciaPage } from 'src/app/modal-cambiar-estado-i
 export class IncidentesPage implements OnInit {
   usuario: any;
   incidentes: any[] = [];
-  searchTerm: string ='';
+  searchTerm: string = '';
   searchSubject: Subject<string> = new Subject<string>();
+  userRoles: string[] = [];
 
   constructor(
     private authService: AuthService,
@@ -33,14 +34,17 @@ export class IncidentesPage implements OnInit {
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
+      return;
     }
     this.authService.obtener_usuario();
 
     this.authService.usuario_en_sesion.subscribe(
-      data => {
+      async data => {
         if (data) {
           this.usuario = data;
           console.log('Usuario en sesión:', data);
+          const roles = await this.authService.obtener_roles_usuario_sesion();
+          this.userRoles = roles.map((role: any) => role.ct_descripcion);
           this.obtener_incidentes(); //Solo si hay un usuario logueado
         } else {
           console.error('No hay usuario en sesión');
@@ -120,5 +124,9 @@ export class IncidentesPage implements OnInit {
 
   onSearchChange(event: any) {
     this.searchSubject.next(event.detail.value);
+  }
+
+  hasRole(role: string): boolean {
+    return this.userRoles.includes(role);
   }
 }

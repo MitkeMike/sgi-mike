@@ -14,20 +14,17 @@
           <ion-label>Pagina de Inicio.</ion-label>
         </ion-item>
         <!-- Crear Usuario  -->
-        <ion-item (click)="ir_a_crear_usuario()">
+        <ion-item *ngIf="hasRole('Administrador')" (click)="ir_a_crear_usuario()">
           <ion-icon slot="start" name="person-circle-outline"></ion-icon>
           <ion-label>Crear Nuevo Usuario.</ion-label>
         </ion-item>
         <!-- Listar Usuarios -->
-        <ion-item (click)="ver_usuarios()" >
+        <ion-item *ngIf="hasRole('Administrador')" (click)="ver_usuarios()" >
           <ion-icon slot="start" name="people-circle-outline"></ion-icon>
           <ion-label>Ver Usuarios.</ion-label>
         </ion-item>
-       <!-- <ion-item  >
-          <ion-icon slot="start" name="document-lock"></ion-icon>
-          <ion-label>Incidencias Asignadas.</ion-label>
-        </ion-item> -->
-        <ion-item (click)=" ver_reportes_por_carga_trabajo()" >
+
+        <ion-item *ngIf="hasRole('Administrador') || hasRole('Supervisor')" (click)=" ver_reportes_por_carga_trabajo()" >
           <ion-icon slot="start" name="document-lock"></ion-icon>
           <ion-label>Reportes por Cargas de Trabajo.</ion-label>
         </ion-item>

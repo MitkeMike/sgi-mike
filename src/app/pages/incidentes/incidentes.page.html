@@ -31,13 +31,13 @@
           </ion-card-content>
           <div class="button-container d-flex flex-column">
             <ion-button class="btn btn-primary w-100 mb-2" fill="clear"
-              (click)="crear_diagnostico(incidente.ct_cod_incidencia)">Crear diagnostico</ion-button>
+              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico')">Crear diagnostico</ion-button>
             <ion-button class="btn btn-info w-100 mb-2" fill="clear"
-              [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]">Ver diagnostico</ion-button>
+              [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]" *ngIf="hasRole('Técnico') || hasRole('Supervisor')">Ver diagnostico</ion-button>
             <ion-button class="btn btn-danger w-100 mb-2" fill="clear"
-              (click)="cambiar_estado(incidente.ct_cod_incidencia)">Cambiar Estado</ion-button>
+              (click)="cambiar_estado(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') || hasRole('Encargado')">Cambiar Estado</ion-button>
             <ion-button class="btn btn-warning w-100" fill="clear"
-              [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]">Asignar Incidencia</ion-button>
+              [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]" *ngIf="hasRole('Encargado')">Asignar Incidencia</ion-button>
           </div>
         </ion-card>
       </ng-container>
@@ -55,7 +55,7 @@
 
     <!-- Floating Action Modal Button  -->
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="abrir_modal()" id="open-modal" size="large">
+      <ion-fab-button (click)="abrir_modal()" id="open-modal" size="large" *ngIf="hasRole('Usuario')">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
