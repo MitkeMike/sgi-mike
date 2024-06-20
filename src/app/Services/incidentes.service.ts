@@ -130,7 +130,7 @@ export class IncidentesService {
   }
 
 
-  cambiar_estado_incidencia(ct_cod_incidencia: string, nuevo_estado: string): Promise<any> {
+  cambiar_estado_incidencia(ct_cod_incidencia: string, nuevo_estado: string, cn_user_id:number): Promise<any> {
     const token = localStorage.getItem(this.tokenKey);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -138,7 +138,8 @@ export class IncidentesService {
 
     const body = {
       ct_cod_incidencia,
-      nuevo_estado
+      nuevo_estado,
+      cn_user_id
     };
 
     return firstValueFrom(this.http.post(`${this.apiURL}incidencias/cambiar-estado`, body, { headers }));

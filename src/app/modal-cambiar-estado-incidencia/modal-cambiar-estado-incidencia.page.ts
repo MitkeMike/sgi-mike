@@ -59,7 +59,7 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
 
   async cambiarEstadoIncidencia() {
     try {
-      const response = await this.incidentesService.cambiar_estado_incidencia(this.ct_cod_incidencia, String(this.estadoSiguiente));
+      const response = await this.incidentesService.cambiar_estado_incidencia(this.ct_cod_incidencia, String(this.estadoSiguiente), this.usuario.cn_user_id);
       if (response) {
         console.log('Estado de la incidencia cambiado', response);
         this.modalController.dismiss();
