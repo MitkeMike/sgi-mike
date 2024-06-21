@@ -27,7 +27,6 @@ export class ReportesPorCargasTrabajoPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
           this.reportes_por_horas_trabajadas();
         } else {
           console.error('No hay usuario en sesión');
@@ -44,7 +43,6 @@ export class ReportesPorCargasTrabajoPage implements OnInit {
       const response = await this.adminService.reporte_por_horas_trabajadas();
       if (response) {
         this.reportes = response;
-        console.log(this.reportes);
         
       } else {
         console.error('No se pudieron obtener los reportes.');

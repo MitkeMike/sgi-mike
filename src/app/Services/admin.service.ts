@@ -97,7 +97,6 @@ export class AdminService {
             'Authorization': `Bearer ${token}`
         });
         const response: any = await this.http.get(`${this.apiURL}admin/tecnicos`, { headers }).toPromise();
-        console.log('Respuesta de obtener_tecnicos:', response); // Añadido para depuración
         return response;
     } catch (error) {
         console.error('Error al obtener los técnicos', error);

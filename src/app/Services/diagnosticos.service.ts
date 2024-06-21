@@ -19,7 +19,6 @@ export class DiagnosticosService {
       });
 
       const response: any = await this.http.get(`${this.apiURL}diagnosticos/${ct_cod_incidencia}`).toPromise();
-      console.log('Diagnosticos obtenidos', response);
       
       return response.map((diagnostico: any) => {
         if (diagnostico.imagen && diagnostico.imagen.img) {

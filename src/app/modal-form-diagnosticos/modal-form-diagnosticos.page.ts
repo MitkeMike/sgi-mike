@@ -36,7 +36,6 @@ export class ModalFormDiagnosticosPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -86,6 +85,7 @@ export class ModalFormDiagnosticosPage implements OnInit {
       );
       this.presentToast();
       this.cerrar_modal();
+      window.location.reload();
     } catch (error) {
       console.error('Error al crear el diagnóstico', error);
     }

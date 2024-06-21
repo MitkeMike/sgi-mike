@@ -35,7 +35,6 @@ export class ModalFormEliminarRolPage implements OnInit {
           this.usuario = data;
           this.cn_user_id = this.navParams.get('cn_user_id');  
           this.obtener_roles_usuario();
-          console.log('Usuario en sesión:', data);
 
         } else {
           console.error('No hay usuario en sesión');
@@ -50,7 +49,6 @@ export class ModalFormEliminarRolPage implements OnInit {
   async obtener_roles_usuario() {
     this.roles_usuario = await this.adminService.roles_por_usuario(this.cn_user_id);
     if (this.roles_usuario) {
-      console.log('Roles obtenidos', this.roles_usuario);
     } else {
       console.error('Error al obtener los roles');
     }
@@ -60,8 +58,8 @@ export class ModalFormEliminarRolPage implements OnInit {
     const response = await this.adminService.eliminar_roles(this.cn_user_id, this.roles_seleccionados);
     
     if (response) {
-      console.log('Roles eliminados', response);
       this.cerrarModal();
+      window.location.reload();
     } else {
       console.error('Error al eliminar los roles');
     }

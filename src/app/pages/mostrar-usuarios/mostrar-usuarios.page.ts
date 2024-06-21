@@ -37,7 +37,6 @@ export class MostrarUsuariosPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
           this.obtener_usuarios(); 
         } else {
           console.error('No hay usuario en sesión');
@@ -74,7 +73,6 @@ export class MostrarUsuariosPage implements OnInit {
     try {
       const response: any = await this.adminService.obtener_usuarios();
       if (response) {
-        console.log('Usuarios:', response);
         this.usuarios = response;
       } else {
         console.error('No se obtuvieron los usuarios');

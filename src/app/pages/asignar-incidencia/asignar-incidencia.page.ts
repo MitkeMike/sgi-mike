@@ -52,14 +52,12 @@ export class AsignarIncidenciaPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
           this.obtener_afectaciones();
           this.obtener_categorias();
           this.obtener_estados();
           this.obtener_riesgos();
           this.obtener_prioridades();
           this.obtener_tecnicos();
-          console.log('Obteniendo afectaciones', this.obtener_afectaciones());
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -127,7 +125,6 @@ export class AsignarIncidenciaPage implements OnInit {
       const response = await this.adminService.obtener_prioridades();
       if (response) {
         this.prioridades = response;
-        console.log('Prioridades:', this.prioridades);
       } else {
         console.error('No se pudieron obtener las prioridades.');
       }
@@ -139,10 +136,8 @@ export class AsignarIncidenciaPage implements OnInit {
   async obtener_tecnicos() {
     try {
         const response = await this.adminService.obtener_tecnicos();
-        console.log('Respuesta de obtener_tecnicos en el componente:', response); // Añadido para depuración
         if (response) {
             this.tecnicos = response;
-            console.log('Técnicos:', this.tecnicos);
         } else {
             console.error('No se pudieron obtener los técnicos.');
         }
@@ -166,7 +161,6 @@ export class AsignarIncidenciaPage implements OnInit {
       prioridad: this.selectedPrioridades,
       tiempo_estimado_reparacion: this.tiempoEstimadoReparacion // Añadir el nuevo campo
     };
-    console.log('Incidencia a asignar:', incidenciaData);
   
     this.incidentesService.actualizar_incidente(
       incidenciaData.ct_cod_incidencia,
@@ -177,7 +171,6 @@ export class AsignarIncidenciaPage implements OnInit {
       incidenciaData.prioridad,
       incidenciaData.tiempo_estimado_reparacion // Pasar el nuevo campo
     ).then(response => {
-      console.log('Respuesta del servidor:', response);
     }).catch(error => {
       console.error('Error:', error);
     });

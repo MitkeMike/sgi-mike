@@ -35,7 +35,6 @@ export class FormModalIncidentesComponent implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -76,9 +75,9 @@ export class FormModalIncidentesComponent implements OnInit {
         this.ct_lugar_incidencia,
         this.img
       );
-      console.log(response);
       this.presentToast();
       this.cerrar_modal();
+      window.location.reload();
     } catch (error) {
       console.error('Error al enviar el formulario', error);
     }

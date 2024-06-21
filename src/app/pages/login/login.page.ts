@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
     event.preventDefault(); // Evita que la página se recargue al enviar el formulario
     try {
       const response = await this.authService.login(this.ct_correo, this.ct_password);
-      console.log(response);
 
       if (response && response.message === 'Inicio de sesión exitoso') { // Verifica el mensaje de éxito
         this.authService.obtener_usuario(); // Obtener el usuario en sesión

@@ -35,7 +35,6 @@ export class ModalFormAnadirRolPage implements OnInit {
           this.usuario = data;
           this.cn_user_id = this.navParams.get('cn_user_id');  
           this.obtener_roles();
-          console.log('Usuario en sesión:', data);
 
         } else {
           console.error('No hay usuario en sesión');
@@ -50,19 +49,16 @@ export class ModalFormAnadirRolPage implements OnInit {
   async obtener_roles() {
     this.roles = await this.adminService.obtener_roles();
     if (this.roles) {
-      console.log('Roles obtenidos', this.roles);
     } else {
       console.error('Error al obtener los roles');
     }
   }
 
   async anadir_roles() {
-    console.log('Roles seleccionados', this.roles_seleccionados);
     const roles = this.roles_seleccionados;
     try {
       const response = await this.adminService.asignar_roles(this.cn_user_id, roles);
       if (response) {
-        console.log('Roles añadidos correctamente');
       } else {
         console.error('Error al añadir los roles');
       }
@@ -70,6 +66,7 @@ export class ModalFormAnadirRolPage implements OnInit {
       console.error('Error al añadir los roles', error);
     }
     this.cerrarModal();
+    window.location.reload();
   }
 
   cerrarModal() {

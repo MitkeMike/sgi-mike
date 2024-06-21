@@ -31,18 +31,18 @@ export class IncidentesPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
       return;
     }
     this.authService.obtener_usuario();
-
+    
     this.authService.usuario_en_sesion.subscribe(
       async data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
           const roles = await this.authService.obtener_roles_usuario_sesion();
           this.userRoles = roles.map((role: any) => role.ct_descripcion);
           this.obtener_incidentes(); //Solo si hay un usuario logueado
@@ -82,7 +82,6 @@ export class IncidentesPage implements OnInit {
       const response = await this.incidentesServices.obtener_incidentes();
       if (response) {
         this.incidentes = response;
-        console.log('Incidentes obtenidos:', response);
       } else {
         console.error('No se pudieron obtener los incidentes.');
       }
@@ -128,5 +127,13 @@ export class IncidentesPage implements OnInit {
 
   hasRole(role: string): boolean {
     return this.userRoles.includes(role);
+  }
+
+  verificar_estado_incidencia(estado: number): boolean {
+    const tecnico = this.hasRole('Técnico') && estado > 2 && estado < 5;
+    const encargado = this.hasRole('Encargado') && estado < 3;
+    const supervisor = this.hasRole('Supervisor') && (estado > 5 && estado < 8 || estado === 8);
+    const result = tecnico || encargado || supervisor;
+    return result;
   }
 }

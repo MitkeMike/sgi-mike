@@ -33,7 +33,6 @@ export class DiagnosticosPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -61,7 +60,6 @@ export class DiagnosticosPage implements OnInit {
     try {
       const response = await this.diagnosticosServices.obtener_diagnosticos(ct_cod_incidencia);
       this.diagnosticos = response;
-      console.log('Diagnosticos obtenidos:', response);
     } catch (error) {
       console.error('Error al obtener los diagnósticos', error);
     }

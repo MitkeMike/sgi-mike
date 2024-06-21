@@ -12,7 +12,7 @@
   <div class="ion-page" id="main-content">
     <ion-content [fullscreen]="true">
       <!--Search Bar-->
-      <ion-searchbar [(ngModel)]="searchTerm"  placeholder="Buscar por título de la incidencia o código"
+      <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar por título de la incidencia o código"
         (ionInput)="onSearchChange($event)"></ion-searchbar>
 
       <ng-container *ngIf="incidentes.length > 0; else noIncidentes">
@@ -31,13 +31,18 @@
           </ion-card-content>
           <div class="button-container d-flex flex-column">
             <ion-button class="btn btn-primary w-100 mb-2" fill="clear"
-              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico')">Crear diagnostico</ion-button>
+              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') && (incidente.cn_id_estado > 5 && incidente.cn_id_estado < 8 || incidente.cn_id_estado === 8) ">Crear
+              diagnostico</ion-button>
             <ion-button class="btn btn-info w-100 mb-2" fill="clear"
-              [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]" *ngIf="hasRole('Técnico') || hasRole('Supervisor')">Ver diagnostico</ion-button>
+              [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]"
+              *ngIf="hasRole('Técnico') || hasRole('Supervisor')">Ver diagnostico</ion-button>
             <ion-button class="btn btn-danger w-100 mb-2" fill="clear"
-              (click)="cambiar_estado(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') || hasRole('Encargado')">Cambiar Estado</ion-button>
+              (click)="cambiar_estado(incidente.ct_cod_incidencia)"
+              *ngIf="verificar_estado_incidencia(incidente.cn_id_estado)">Cambiar
+              Estado</ion-button>
             <ion-button class="btn btn-warning w-100" fill="clear"
-              [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]" *ngIf="hasRole('Encargado')">Asignar Incidencia</ion-button>
+              [routerLink]="['/asignar-incidencia', incidente.ct_cod_incidencia]" *ngIf="hasRole('Encargado')">Asignar
+              Incidencia</ion-button>
           </div>
         </ion-card>
       </ng-container>

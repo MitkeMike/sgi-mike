@@ -37,7 +37,6 @@ export class CrearUsuarioPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          console.log('Usuario en sesión:', data);
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -58,7 +57,6 @@ export class CrearUsuarioPage implements OnInit {
         this.ct_password
       );
       if (response) {
-        console.log('Usuario creado:', response);
         this.resetForm();
         this.presentToast();
       } else {

@@ -22,7 +22,6 @@ export class AuthService {
   async login(ct_correo: string, ct_password: string): Promise<any> {
     try {
       const response: any = await this.http.post(`${this.apiURL}auth/login`, { ct_correo, ct_password }).toPromise();
-      console.log('Login exitoso', response);
       
       // Guardar el token en el almacenamiento local
       localStorage.setItem(this.tokenKey, response.token);
@@ -52,7 +51,6 @@ export class AuthService {
       data => {
         this.usuario_en_sesion_aux.next(data);
         localStorage.setItem(this.userKey, JSON.stringify(data));
-        console.log('Usuario obtenido', data);
       },
       error => {
         console.error('Error al obtener el usuario', error);

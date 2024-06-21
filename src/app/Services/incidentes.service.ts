@@ -22,8 +22,6 @@ export class IncidentesService {
       });
 
       const response: any = await this.http.get(`${this.apiURL}incidencias`, { headers }).toPromise();
-      console.log('Incidentes obtenidos', response);
-
       return response.map((incidencia: any) => {
         if (incidencia.imagen && incidencia.imagen.img) {
           const binary = new Uint8Array(incidencia.imagen.img.data).reduce((acc, byte) => acc + String.fromCharCode(byte), '');
