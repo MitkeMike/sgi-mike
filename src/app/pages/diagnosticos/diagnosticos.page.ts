@@ -23,12 +23,18 @@ export class DiagnosticosPage implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Obtiene el token del usuario y luego obtiene al usuario en sesión.
+   * También obtiene los parámetros de la ruta activa para obtener el código de la incidencia.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
       return; // Salir temprano si no hay token válido
     }
+
     this.authService.usuario_en_sesion.subscribe(
       data => {
         if (data) {
@@ -50,12 +56,13 @@ export class DiagnosticosPage implements OnInit {
         console.error('No se proporcionó un ct_cod_incidencia válido');
       }
     });
-    
-    
-
-   
   }
 
+  /**
+   * obtener_diagnosticos - Método para obtener los diagnósticos de una incidencia específica.
+   * Llama al servicio diagnosticosServices para obtener los diagnósticos de la incidencia.
+   * @param ct_cod_incidencia - Código de la incidencia para la cual obtener los diagnósticos.
+   */
   async obtener_diagnosticos(ct_cod_incidencia: string) {
     try {
       const response = await this.diagnosticosServices.obtener_diagnosticos(ct_cod_incidencia);
@@ -64,8 +71,11 @@ export class DiagnosticosPage implements OnInit {
       console.error('Error al obtener los diagnósticos', error);
     }
   }
+
+  /**
+   * volver - Método para navegar de vuelta a la página de incidentes.
+   */
   volver() {
     this.router.navigate(['/incidentes']);
   }
- 
 }

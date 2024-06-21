@@ -30,22 +30,26 @@ export class IncidentesPage implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Obtiene el token del usuario y luego obtiene al usuario en sesión.
+   * Configura la búsqueda reactiva de incidentes.
+   */
   ngOnInit() {
-    
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
       return;
     }
     this.authService.obtener_usuario();
-    
+
     this.authService.usuario_en_sesion.subscribe(
       async data => {
         if (data) {
           this.usuario = data;
           const roles = await this.authService.obtener_roles_usuario_sesion();
           this.userRoles = roles.map((role: any) => role.ct_descripcion);
-          this.obtener_incidentes(); //Solo si hay un usuario logueado
+          this.obtener_incidentes(); // Solo si hay un usuario logueado
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -55,7 +59,7 @@ export class IncidentesPage implements OnInit {
       }
     );
 
-    //Busqueda reactiva
+    // Búsqueda reactiva
     this.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -77,6 +81,10 @@ export class IncidentesPage implements OnInit {
     );
   }
 
+  /**
+   * obtener_incidentes - Método para obtener todos los incidentes.
+   * Llama al servicio incidentesServices para obtener la lista de incidentes.
+   */
   async obtener_incidentes() {
     try {
       const response = await this.incidentesServices.obtener_incidentes();
@@ -90,6 +98,9 @@ export class IncidentesPage implements OnInit {
     }
   }
 
+  /**
+   * abrir_modal - Método para abrir el modal de creación de incidentes.
+   */
   async abrir_modal() {
     const modal = await this.modalController.create({
       component: FormModalIncidentesComponent
@@ -97,6 +108,10 @@ export class IncidentesPage implements OnInit {
     await modal.present();
   }
 
+  /**
+   * cambiar_estado - Método para abrir el modal de cambio de estado de la incidencia.
+   * @param ct_cod_incidencia - Código de la incidencia para cambiar el estado.
+   */
   async cambiar_estado(ct_cod_incidencia: string) {
     const modal = await this.modalController.create({
       component: ModalCambiarEstadoIncidenciaPage,
@@ -107,10 +122,18 @@ export class IncidentesPage implements OnInit {
     await modal.present();
   }
 
+  /**
+   * ver_diagnostico - Método para navegar a la página de diagnósticos.
+   * @param ct_cod_incidencia - Código de la incidencia para ver el diagnóstico.
+   */
   ver_diagnostico(ct_cod_incidencia: string) {
     this.router.navigate(['/diagnosticos', ct_cod_incidencia]);
   }
 
+  /**
+   * crear_diagnostico - Método para abrir el modal de creación de diagnóstico.
+   * @param ct_cod_incidencia - Código de la incidencia para crear el diagnóstico.
+   */
   async crear_diagnostico(ct_cod_incidencia: string) {
     const modal = await this.modalController.create({
       component: ModalFormDiagnosticosPage,
@@ -121,17 +144,31 @@ export class IncidentesPage implements OnInit {
     await modal.present();
   }
 
+  /**
+   * onSearchChange - Método para manejar el cambio en el término de búsqueda.
+   * @param event - Evento de cambio de búsqueda.
+   */
   onSearchChange(event: any) {
     this.searchSubject.next(event.detail.value);
   }
 
+  /**
+   * hasRole - Método para verificar si el usuario tiene un rol específico.
+   * @param role - Nombre del rol a verificar.
+   * @returns - Devuelve true si el usuario tiene el rol, de lo contrario false.
+   */
   hasRole(role: string): boolean {
     return this.userRoles.includes(role);
   }
 
+  /**
+   * verificar_estado_incidencia - Método para verificar si el estado de la incidencia permite ciertas acciones.
+   * @param estado - Estado de la incidencia.
+   * @returns - Devuelve true si el estado permite la acción, de lo contrario false.
+   */
   verificar_estado_incidencia(estado: number): boolean {
-    const tecnico = this.hasRole('Técnico') && estado > 2 && estado < 5;
-    const encargado = this.hasRole('Encargado') && estado < 3;
+    const tecnico = this.hasRole('Técnico') && estado >= 2 && estado < 5;
+    const encargado = this.hasRole('Encargado') && estado < 2;
     const supervisor = this.hasRole('Supervisor') && (estado > 5 && estado < 8 || estado === 8);
     const result = tecnico || encargado || supervisor;
     return result;

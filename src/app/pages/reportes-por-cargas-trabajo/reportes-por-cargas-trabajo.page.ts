@@ -9,14 +9,18 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 export class ReportesPorCargasTrabajoPage implements OnInit {
   usuario: any;
-  reportes: any [] = [];
+  reportes: any[] = [];
+
   constructor(
     private authService: AuthService,
     private adminService: AdminService
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Verifica la existencia de un token, obtiene el usuario en sesión y sus datos, y obtiene los reportes por horas trabajadas.
+   */
   ngOnInit() {
-
     const token = this.authService.obtener_token();
     if (!token) {
       console.error('No hay un token válido');
@@ -38,19 +42,20 @@ export class ReportesPorCargasTrabajoPage implements OnInit {
     );
   }
 
+  /**
+   * reportes_por_horas_trabajadas - Método para obtener los reportes por horas trabajadas desde el servicio de administración.
+   */
   async reportes_por_horas_trabajadas() {
     try {
       const response = await this.adminService.reporte_por_horas_trabajadas();
       if (response) {
         this.reportes = response;
-        
       } else {
         console.error('No se pudieron obtener los reportes.');
       }
     } catch (error) {
-      console.error('Error al obtener los reportes: ', error)
+      console.error('Error al obtener los reportes: ', error);
     }
   }
-
 
 }

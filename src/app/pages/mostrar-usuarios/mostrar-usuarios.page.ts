@@ -6,7 +6,8 @@ import { Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ModalController } from '@ionic/angular';
 import { ModalFormAnadirRolPage } from 'src/app/modal-form-anadir-rol/modal-form-anadir-rol.page';
-import { ModalFormEliminarRolPage  } from 'src/app/modal-form-eliminar-rol/modal-form-eliminar-rol.page';
+import { ModalFormEliminarRolPage } from 'src/app/modal-form-eliminar-rol/modal-form-eliminar-rol.page';
+
 @Component({
   selector: 'app-mostrar-usuarios',
   templateUrl: './mostrar-usuarios.page.html',
@@ -14,11 +15,11 @@ import { ModalFormEliminarRolPage  } from 'src/app/modal-form-eliminar-rol/modal
 })
 export class MostrarUsuariosPage implements OnInit {
 
-
   usuario: any;
   usuarios: any[] = [];
   searchTerm: string = '';
   searchSubject: Subject<string> = new Subject<string>();
+
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
@@ -26,6 +27,10 @@ export class MostrarUsuariosPage implements OnInit {
     private modalController: ModalController
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Verifica la existencia de un token, obtiene el usuario en sesión y sus datos, y configura la búsqueda reactiva.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
@@ -53,7 +58,7 @@ export class MostrarUsuariosPage implements OnInit {
       distinctUntilChanged(),
       switchMap(term => {
         if (term === '') {
-          return of (this.obtener_usuarios());
+          return of(this.obtener_usuarios());
         } else {
           return this.buscar_usuarios(term);
         }
@@ -69,6 +74,9 @@ export class MostrarUsuariosPage implements OnInit {
     );
   }
 
+  /**
+   * obtener_usuarios - Método para obtener la lista de usuarios desde el servicio de administración.
+   */
   async obtener_usuarios() {
     try {
       const response: any = await this.adminService.obtener_usuarios();
@@ -82,14 +90,28 @@ export class MostrarUsuariosPage implements OnInit {
     }
   }
 
+  /**
+   * buscar_usuarios - Método para buscar usuarios por término de búsqueda.
+   * @param term - Término de búsqueda.
+   * @returns Observable con la lista de usuarios filtrados.
+   */
   buscar_usuarios(term: string) {
     return this.adminService.buscar_usuarios(term);
   }
 
+  /**
+   * onSearchChange - Método que se ejecuta cuando cambia el término de búsqueda.
+   * Envía el nuevo término de búsqueda al Subject para iniciar la búsqueda reactiva.
+   * @param event - Evento de cambio en el término de búsqueda.
+   */
   onSearchChange(event: any) {
     this.searchSubject.next(event.detail.value);
   }
 
+  /**
+   * abrirAsignarRolesModal - Método para abrir el modal de asignación de roles.
+   * @param cn_user_id - ID del usuario al que se le asignarán roles.
+   */
   async abrirAsignarRolesModal(cn_user_id: number) {
     const modal = await this.modalController.create({
       component: ModalFormAnadirRolPage,
@@ -98,6 +120,10 @@ export class MostrarUsuariosPage implements OnInit {
     await modal.present();
   }
 
+  /**
+   * abrirEliminarRolesModal - Método para abrir el modal de eliminación de roles.
+   * @param cn_user_id - ID del usuario al que se le eliminarán roles.
+   */
   async abrirEliminarRolesModal(cn_user_id: number) {
     const modal = await this.modalController.create({
       component: ModalFormEliminarRolPage,

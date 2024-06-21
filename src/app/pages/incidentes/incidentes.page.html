@@ -31,7 +31,7 @@
           </ion-card-content>
           <div class="button-container d-flex flex-column">
             <ion-button class="btn btn-primary w-100 mb-2" fill="clear"
-              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') && (incidente.cn_id_estado > 5 && incidente.cn_id_estado < 8 || incidente.cn_id_estado === 8) ">Crear
+              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') && (incidente.cn_id_estado >= 2 && incidente.cn_id_estado < 8 || incidente.cn_id_estado === 8) ">Crear
               diagnostico</ion-button>
             <ion-button class="btn btn-info w-100 mb-2" fill="clear"
               [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]"

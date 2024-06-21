@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController, NavParams, ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from '../Services/auth.service';
 import { DiagnosticosService } from '../Services/diagnosticos.service';
 
@@ -25,6 +25,10 @@ export class ModalFormDiagnosticosPage implements OnInit {
     private toastController: ToastController
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Verifica si hay un token válido y obtiene el usuario en sesión.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
@@ -46,15 +50,23 @@ export class ModalFormDiagnosticosPage implements OnInit {
     );
   }
 
+  /**
+   * cerrar_modal - Método para cerrar el modal.
+   */
   cerrar_modal() {
     this.modalController.dismiss();
   }
 
+  /**
+   * onFileChange - Método que se ejecuta al cambiar el archivo seleccionado.
+   * Actualiza la variable img con el archivo seleccionado y muestra el nombre del archivo.
+   * @param event - El evento de cambio de archivo.
+   */
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.img = file;
-  
+
       // Actualiza el texto del span para mostrar el nombre del archivo
       const fileNameSpan = document.getElementById('fileName');
       if (fileNameSpan) {
@@ -63,6 +75,11 @@ export class ModalFormDiagnosticosPage implements OnInit {
     }
   }
 
+  /**
+   * crear_diagnostico - Método para crear un diagnóstico.
+   * Verifica si hay una imagen seleccionada y si hay un token válido.
+   * Llama al servicio para crear el diagnóstico y muestra un toast en caso de éxito.
+   */
   async crear_diagnostico() {
     if (!this.img) {
       console.error('Hace falta la imagen');
@@ -74,7 +91,7 @@ export class ModalFormDiagnosticosPage implements OnInit {
         console.error('No hay un token válido');
         return;
       }
-      
+
       await this.diagnosticosService.crear_diagnostico(
         this.ct_cod_incidencia,
         this.usuario.cn_user_id,
@@ -91,6 +108,9 @@ export class ModalFormDiagnosticosPage implements OnInit {
     }
   }
 
+  /**
+   * presentToast - Método para mostrar un mensaje toast.
+   */
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Se ha creado con éxito',

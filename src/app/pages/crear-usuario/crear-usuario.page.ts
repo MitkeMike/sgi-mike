@@ -26,6 +26,10 @@ export class CrearUsuarioPage implements OnInit {
     private router: Router
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Obtiene el token del usuario y luego obtiene al usuario en sesión.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
@@ -47,6 +51,11 @@ export class CrearUsuarioPage implements OnInit {
     );
   }
 
+  /**
+   * crear_usuario - Método para crear un nuevo usuario.
+   * Llama al servicio adminService para crear un nuevo usuario con los datos del formulario.
+   * Muestra un mensaje toast en caso de éxito y resetea el formulario.
+   */
   async crear_usuario() {
     try {
       const response = await this.adminService.crear_usuario(
@@ -67,6 +76,9 @@ export class CrearUsuarioPage implements OnInit {
     }
   }
 
+  /**
+   * resetForm - Método para resetear el formulario de creación de usuario.
+   */
   resetForm() {
     this.ct_nombre = '';
     this.ct_cedula = '';
@@ -75,6 +87,10 @@ export class CrearUsuarioPage implements OnInit {
     this.ct_password = '';
   }
 
+  /**
+   * presentToast - Método para mostrar un mensaje toast.
+   * @param message - El mensaje a mostrar en el toast.
+   */
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Se ha registrado un nuevo usuario con éxito',
@@ -84,6 +100,9 @@ export class CrearUsuarioPage implements OnInit {
     toast.present();
   }
 
+  /**
+   * volver - Método para navegar de vuelta a la página de incidentes.
+   */
   volver() {
     this.router.navigate(['/incidentes']);
   }

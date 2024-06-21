@@ -24,6 +24,10 @@ export class FormModalIncidentesComponent implements OnInit {
     private toastController: ToastController
   ) { }
 
+  /**
+   * ngOnInit - Hook del ciclo de vida que se ejecuta cuando el componente se inicializa.
+   * Aquí se obtiene el token de autenticación y se recupera la información del usuario en sesión.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
@@ -45,10 +49,17 @@ export class FormModalIncidentesComponent implements OnInit {
     );
   }
 
+  /**
+   * cerrar_modal - Cierra el modal actual.
+   */
   cerrar_modal() {
     this.modalController.dismiss();
   }
 
+  /**
+   * onFileChange - Maneja el evento de cambio de archivo cuando se selecciona una imagen.
+   * @param event - El evento de cambio del input de archivo.
+   */
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -62,7 +73,12 @@ export class FormModalIncidentesComponent implements OnInit {
     }
   }
 
+  /**
+   * onSubmit - Maneja el envío del formulario para crear un incidente.
+   * @param event - El evento de envío del formulario.
+   */
   async onSubmit(event: Event) {
+    event.preventDefault(); // Previene la recarga de la página al enviar el formulario
     if (!this.img) {
       console.error('Hace falta la imagen');
       return;
@@ -83,6 +99,9 @@ export class FormModalIncidentesComponent implements OnInit {
     }
   }
 
+  /**
+   * presentToast - Muestra un toast con un mensaje de éxito.
+   */
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Se ha creado con éxito',

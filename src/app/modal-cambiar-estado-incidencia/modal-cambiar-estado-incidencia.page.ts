@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from '../Services/auth.service';
 import { IncidentesService } from '../Services/incidentes.service';
 
@@ -9,8 +9,8 @@ import { IncidentesService } from '../Services/incidentes.service';
   styleUrls: ['./modal-cambiar-estado-incidencia.page.scss'],
 })
 export class ModalCambiarEstadoIncidenciaPage implements OnInit {
-  
-  @Input() ct_cod_incidencia: string = '';
+
+  @Input() ct_cod_incidencia: string = ''; // Recibe el código de la incidencia como input
   estadoActual: number = 0;
   estadoSiguiente: number = 0;
   estados: any[] = [];
@@ -19,9 +19,14 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private incidentesService: IncidentesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastController: ToastController
   ) { }
 
+  /**
+   * ngOnInit - Método que se ejecuta al inicializar el componente.
+   * Verifica si hay un token válido y obtiene el usuario en sesión.
+   */
   ngOnInit() {
     const token = this.authService.obtener_token();
     if (!token) {
@@ -33,7 +38,7 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
       data => {
         if (data) {
           this.usuario = data;
-          this.obtenerEstadoIncidencia();
+          this.obtenerEstadoIncidencia(); // Obtiene el estado de la incidencia si hay un usuario en sesión
         } else {
           console.error('No hay usuario en sesión');
         }
@@ -44,6 +49,9 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
     );
   }
 
+  /**
+   * obtenerEstadoIncidencia - Método para obtener el estado actual y siguiente de la incidencia.
+   */
   async obtenerEstadoIncidencia() {
     try {
       const response = await this.incidentesService.obtener_estado_incidencia(this.ct_cod_incidencia);
@@ -54,10 +62,15 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
     }
   }
 
+  /**
+   * cambiarEstadoIncidencia - Método para cambiar el estado de la incidencia.
+   * Muestra un toast y recarga la página si el cambio de estado es exitoso.
+   */
   async cambiarEstadoIncidencia() {
     try {
       const response = await this.incidentesService.cambiar_estado_incidencia(this.ct_cod_incidencia, String(this.estadoSiguiente), this.usuario.cn_user_id);
       if (response) {
+        this.presentToast('Se ha cambiado el estado de manera exitosa');
         this.modalController.dismiss();
         window.location.reload();
       } else {
@@ -68,6 +81,23 @@ export class ModalCambiarEstadoIncidenciaPage implements OnInit {
     }
   }
 
+  /**
+   * presentToast - Método para mostrar un mensaje toast.
+   * @param message - El mensaje a mostrar en el toast.
+   */
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'top',
+      color: 'success'
+    });
+    toast.present();
+  }
+
+  /**
+   * cerrarModal - Método para cerrar el modal.
+   */
   cerrarModal() {
     this.modalController.dismiss();
   }

@@ -9,8 +9,12 @@ export class AdminService {
 
   private apiURL = 'http://127.0.0.1:3000/';
   private tokenKey = 'authToken'; // Clave para guardar el token en el almacenamiento local
+
   constructor(private http: HttpClient) { }
 
+  /**
+   * Obtener afectaciones desde el servidor.
+   */
   async obtener_afectaciones(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -25,6 +29,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener categorías desde el servidor.
+   */
   async obtener_categorias(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -34,10 +41,13 @@ export class AdminService {
       const response: any = await this.http.get(`${this.apiURL}admin/categorias`, { headers }).toPromise();
       return response;
     } catch (error) {
-      console.error('Error al obtener las categorias', error);
+      console.error('Error al obtener las categorías', error);
     }
   }
 
+  /**
+   * Obtener estados desde el servidor.
+   */
   async obtener_estados(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -51,6 +61,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener riesgos desde el servidor.
+   */
   async obtener_riesgos(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -64,6 +77,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener prioridades desde el servidor.
+   */
   async obtener_prioridades(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -77,8 +93,11 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener reporte por horas trabajadas desde el servidor.
+   */
   async reporte_por_horas_trabajadas(): Promise<any> {
-    try{
+    try {
       const token = localStorage.getItem(this.tokenKey);
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
@@ -86,24 +105,30 @@ export class AdminService {
       const response: any = await this.http.get(`${this.apiURL}admin/reporte-horas-trabajadas`, { headers }).toPromise();
       return response;
     } catch (error) {
-      console.error('Error al obtener los reportes', error)
+      console.error('Error al obtener los reportes', error);
     }
   }
 
+  /**
+   * Obtener técnicos desde el servidor.
+   */
   async obtener_tecnicos(): Promise<any> {
     try {
-        const token = localStorage.getItem(this.tokenKey);
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        const response: any = await this.http.get(`${this.apiURL}admin/tecnicos`, { headers }).toPromise();
-        return response;
+      const token = localStorage.getItem(this.tokenKey);
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+      const response: any = await this.http.get(`${this.apiURL}admin/tecnicos`, { headers }).toPromise();
+      return response;
     } catch (error) {
-        console.error('Error al obtener los técnicos', error);
-        throw error; // Propagar el error para manejarlo en el componente
+      console.error('Error al obtener los técnicos', error);
+      throw error; // Propagar el error para manejarlo en el componente
     }
-}
+  }
 
+  /**
+   * Crear un nuevo usuario.
+   */
   async crear_usuario(
     ct_nombre: string,
     ct_cedula: string,
@@ -131,6 +156,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener usuarios desde el servidor.
+   */
   async obtener_usuarios(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -144,6 +172,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Buscar usuarios en el servidor.
+   */
   buscar_usuarios(term: string): Observable<any> {
     const token = localStorage.getItem(this.tokenKey);
     const headers = new HttpHeaders({
@@ -153,6 +184,9 @@ export class AdminService {
     return this.http.post(`${this.apiURL}usuarios/buscar-usuario`, body, { headers });
   }
 
+  /**
+   * Obtener roles desde el servidor.
+   */
   async obtener_roles(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -166,7 +200,9 @@ export class AdminService {
     }
   }
 
-
+  /**
+   * Asignar roles a un usuario.
+   */
   async asignar_roles(cn_user_id: number, roles: any[]): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -185,6 +221,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Obtener roles de un usuario específico.
+   */
   async roles_por_usuario(cn_id_usuario: number): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -199,6 +238,9 @@ export class AdminService {
     }
   }
 
+  /**
+   * Eliminar roles de un usuario específico.
+   */
   async eliminar_roles(cn_user_id: number, roles: any[]): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -216,5 +258,4 @@ export class AdminService {
       throw error;
     }
   }
-
 }

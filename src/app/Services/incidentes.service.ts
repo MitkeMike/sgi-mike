@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Observable, firstValueFrom } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +13,10 @@ export class IncidentesService {
 
   constructor(private http: HttpClient, private alertController: AlertController) { }
 
+  /**
+   * Obtiene todas las incidencias.
+   * @returns Una promesa con las incidencias.
+   */
   async obtener_incidentes(): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -22,6 +25,7 @@ export class IncidentesService {
       });
 
       const response: any = await this.http.get(`${this.apiURL}incidencias`, { headers }).toPromise();
+      // Procesar las imágenes en base64
       return response.map((incidencia: any) => {
         if (incidencia.imagen && incidencia.imagen.img) {
           const binary = new Uint8Array(incidencia.imagen.img.data).reduce((acc, byte) => acc + String.fromCharCode(byte), '');
@@ -37,7 +41,17 @@ export class IncidentesService {
     }
   }
 
-  async crear_incidente(ct_titulo_incidencia: string,
+  /**
+   * Crea una nueva incidencia.
+   * @param ct_titulo_incidencia - El título de la incidencia.
+   * @param cn_user_id - El ID del usuario que crea la incidencia.
+   * @param ct_descripcion_incidencia - La descripción de la incidencia.
+   * @param ct_lugar_incidencia - El lugar de la incidencia.
+   * @param img - La imagen asociada a la incidencia.
+   * @returns Una promesa con la respuesta del servidor.
+   */
+  async crear_incidente(
+    ct_titulo_incidencia: string,
     cn_user_id: number,
     ct_descripcion_incidencia: string,
     ct_lugar_incidencia: string,
@@ -65,6 +79,17 @@ export class IncidentesService {
     }
   }
 
+  /**
+   * Actualiza una incidencia existente.
+   * @param ct_cod_incidencia - El código de la incidencia.
+   * @param cn_user_id - El ID del usuario que actualiza la incidencia.
+   * @param afectacion - El nivel de afectación de la incidencia.
+   * @param categoria - La categoría de la incidencia.
+   * @param riesgo - El nivel de riesgo de la incidencia.
+   * @param prioridad - La prioridad de la incidencia.
+   * @param tiempo_estimado_reparacion - El tiempo estimado de reparación.
+   * @returns Una promesa con la respuesta del servidor.
+   */
   async actualizar_incidente(
     ct_cod_incidencia: string,
     cn_user_id: number,
@@ -72,7 +97,7 @@ export class IncidentesService {
     categoria: number,
     riesgo: number,
     prioridad: number,
-    tiempo_estimado_reparacion: number // Añadir el nuevo parámetro
+    tiempo_estimado_reparacion: number
   ): Promise<any> {
     try {
       const token = localStorage.getItem(this.tokenKey);
@@ -87,7 +112,7 @@ export class IncidentesService {
         categoria,
         riesgo,
         prioridad,
-        tiempo_estimado_reparacion // Añadir el nuevo campo al cuerpo de la solicitud
+        tiempo_estimado_reparacion
       };
   
       const response: any = await this.http.post(`${this.apiURL}incidencias/actualizar`, body, { headers }).toPromise();
@@ -98,8 +123,13 @@ export class IncidentesService {
       return null;
     }
   }
-  
 
+  /**
+   * Busca incidencias por código o título.
+   * @param ct_cod_incidencia - El código de la incidencia (opcional).
+   * @param ct_titulo_incidencia - El título de la incidencia (opcional).
+   * @returns Una promesa con las incidencias encontradas.
+   */
   async buscar_incidencia(ct_cod_incidencia?: string, ct_titulo_incidencia?: string): Promise<any> {
     const url = `${this.apiURL}incidencias/buscar-incidencia`;
     const body = { ct_cod_incidencia, ct_titulo_incidencia };
@@ -117,8 +147,12 @@ export class IncidentesService {
     }
   }
 
-
-   obtener_estado_incidencia(ct_cod_incidencia: string): Promise <any> {
+  /**
+   * Obtiene el estado de una incidencia específica.
+   * @param ct_cod_incidencia - El código de la incidencia.
+   * @returns Una promesa con el estado de la incidencia.
+   */
+  obtener_estado_incidencia(ct_cod_incidencia: string): Promise<any> {
     const token = localStorage.getItem(this.tokenKey);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -127,8 +161,14 @@ export class IncidentesService {
     return firstValueFrom(this.http.get(`${this.apiURL}incidencias/estado/${ct_cod_incidencia}`, { headers }));
   }
 
-
-  cambiar_estado_incidencia(ct_cod_incidencia: string, nuevo_estado: string, cn_user_id:number): Promise<any> {
+  /**
+   * Cambia el estado de una incidencia específica.
+   * @param ct_cod_incidencia - El código de la incidencia.
+   * @param nuevo_estado - El nuevo estado de la incidencia.
+   * @param cn_user_id - El ID del usuario que cambia el estado.
+   * @returns Una promesa con la respuesta del servidor.
+   */
+  cambiar_estado_incidencia(ct_cod_incidencia: string, nuevo_estado: string, cn_user_id: number): Promise<any> {
     const token = localStorage.getItem(this.tokenKey);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
@@ -142,6 +182,4 @@ export class IncidentesService {
 
     return firstValueFrom(this.http.post(`${this.apiURL}incidencias/cambiar-estado`, body, { headers }));
   }
-
 }
-
