@@ -18,7 +18,16 @@
       <ng-container *ngIf="incidentes.length > 0; else noIncidentes">
         <ion-card *ngFor="let incidente of incidentes">
           <ion-card-header>
-            <ion-card-title>{{ incidente.ct_titulo_incidencia }}</ion-card-title>
+            <ion-row>
+              <ion-col>
+                <ion-card-title>{{ incidente.ct_titulo_incidencia }}</ion-card-title>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <p class="Estado" [ngClass]="getEstadoClase(incidente.cn_id_estado)">
+                 Estado: {{ get_estado_descripcion(incidente.cn_id_estado) }}
+                </p>
+              </ion-col>
+            </ion-row>
             <ion-card-subtitle></ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
@@ -31,7 +40,7 @@
           </ion-card-content>
           <div class="button-container d-flex flex-column">
             <ion-button class="btn btn-primary w-100 mb-2" fill="clear"
-              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') && (incidente.cn_id_estado >= 2 && incidente.cn_id_estado < 8 || incidente.cn_id_estado === 8) ">Crear
+              (click)="crear_diagnostico(incidente.ct_cod_incidencia)" *ngIf="hasRole('Técnico') && (incidente.cn_id_estado >= 2 && incidente.cn_id_estado < 8 || incidente.cn_id_estado === 8)">Crear
               diagnostico</ion-button>
             <ion-button class="btn btn-info w-100 mb-2" fill="clear"
               [routerLink]="['/diagnosticos', incidente.ct_cod_incidencia]"

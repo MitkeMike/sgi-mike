@@ -1,62 +1,111 @@
 .custom-menu {
-    --background: #9EDDFF; 
-  }
-  
-  .custom-menu-header {
-    --background: #9EDDFF;
-  }
-  .custom-title {
-    --color: #9EDDFF; 
-  }
-  .custom-menu-content {
-    --background: #9EDDFF;
-  }
-  
-  .centered-title {
-    text-align: center;
-    width: 100%;
-  }
-  ion-content {
-    --padding-top: 56px; /* Ajusta el espacio superior */
-  }
-  
-  ion-menu::part(backdrop) {
-    background-color: rgb(158, 221, 255);
-  }
-  
-  ion-menu::part(container) {
-    border-radius: 0 20px 20px 0;
-    box-shadow: 4px 0px 16px rgb(166, 246, 255);
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px; /* Espacio superior opcional */
-  }
-  ion-fab-button {
-    --background: #A6F6FF; /* Color de fondo por defecto */
-    --color: white; /* Color del texto */
-    --border-radius: 50%; /* Bordes redondeados */
-    margin-left: 10px; /* Espacio entre botones */
-  }
-  ion-fab-button:hover {
-    --background: #6499E9; /* Color de fondo al pasar el mouse */
-  }
-  
-  .custom-button {
-    --border-radius: 50%;
-    --background: #A6F6FF; /* Color de fondo por defecto */
-    --color: white; /* Color del texto */
-    margin-left: 10px; /* Espacio entre botones */
-    width: 100px; /* Ajusta el ancho del botón */
-    height: 60px; /* Ajusta la altura del botón */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .custom-button:hover {
-    --background: #6499E9; /* Color de fondo al pasar el mouse */
-  }
-  
+  --background: #9EDDFF;
+}
+
+.custom-menu-header {
+  --background: #9EDDFF;
+}
+
+.custom-title {
+  --color: #9EDDFF;
+}
+
+.custom-menu-content {
+  --background: #9EDDFF;
+}
+
+.centered-title {
+  text-align: center;
+  width: 100%;
+}
+
+ion-content {
+  --padding-top: 56px; /* Ajusta el espacio superior */
+}
+
+ion-menu::part(backdrop) {
+  background-color: rgb(158, 221, 255);
+}
+
+ion-menu::part(container) {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 4px 0px 16px rgb(166, 246, 255);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px; /* Espacio superior opcional */
+}
+
+ion-fab-button {
+  --background: #A6F6FF; /* Color de fondo por defecto */
+  --color: white; /* Color del texto */
+  --border-radius: 50%; /* Bordes redondeados */
+  margin-left: 10px; /* Espacio entre botones */
+}
+
+ion-fab-button:hover {
+  --background: #6499E9; /* Color de fondo al pasar el mouse */
+}
+
+.custom-button {
+  --border-radius: 50%;
+  --background: #A6F6FF; /* Color de fondo por defecto */
+  --color: white; /* Color del texto */
+  margin-left: 10px; /* Espacio entre botones */
+  width: 100px; /* Ajusta el ancho del botón */
+  height: 60px; /* Ajusta la altura del botón */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button:hover {
+  --background: #6499E9; /* Color de fondo al pasar el mouse */
+}
+
+.Estado {
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block; /* Asegura que el elemento no ocupe toda la línea */
+  width: 100px; /* Ancho del cuadro */
+  text-align: center; /* Centra el texto en el cuadro */
+  color: black; /* Asegura que el texto sea siempre negro */
+}
+
+.estado-registrado {
+  border: 2px solid lightblue;
+  background-color: blanchedalmond;
+}
+
+.estado-asignado {
+  border: 2px solid green;
+  background-color: lightgreen;
+}
+
+.estado-en-revision {
+  border: 2px solid yellow;
+  background-color: whitesmoke;
+}
+
+.estado-en-reparacion {
+  border: 2px solid red;
+  background-color: lightcoral;
+}
+
+.estado-terminado {
+  border: 2px solid purple;
+  background-color: thistle;
+}
+
+.estado-aprobado {
+  border: 2px solid darkgreen;
+  background-color: lightgreen;
+}
+
+.estado-cerrado {
+  border: 2px solid black;
+  background-color: lightgray;
+}

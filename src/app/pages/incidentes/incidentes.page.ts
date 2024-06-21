@@ -22,6 +22,16 @@ export class IncidentesPage implements OnInit {
   searchSubject: Subject<string> = new Subject<string>();
   userRoles: string[] = [];
 
+   estadosValidos = [
+    { id: 1, descripcion: 'Registrado' },
+    { id: 2, descripcion: 'Asignado' },
+    { id: 3, descripcion: 'En Revisión' },
+    { id: 4, descripcion: 'En Reparación' },
+    { id: 6, descripcion: 'Terminado' },
+    { id: 7, descripcion: 'Aprobado' },
+    { id: 9, descripcion: 'Cerrado'}
+];
+
   constructor(
     private authService: AuthService,
     private incidentesServices: IncidentesService,
@@ -173,4 +183,37 @@ export class IncidentesPage implements OnInit {
     const result = tecnico || encargado || supervisor;
     return result;
   }
+
+    /**
+   * getEstadoDescripcion - Método para obtener la descripción de un estado por su ID.
+   * @param id - ID del estado.
+   * @returns - Devuelve la descripción del estado.
+   */
+    get_estado_descripcion(id: number): string {
+      const estado = this.estadosValidos.find(e => e.id === id);
+      return estado ? estado.descripcion : 'Desconocido';
+    }
+
+    getEstadoClase(id: number): string {
+      switch (id) {
+        case 1:
+          return 'estado-registrado';
+        case 2:
+          return 'estado-asignado';
+        case 3:
+          return 'estado-en-revision';
+        case 4:
+          return 'estado-en-reparacion';
+        case 6:
+          return 'estado-terminado';
+        case 7:
+          return 'estado-aprobado';
+        case 9:
+          return 'estado-cerrado';
+        default:
+          return '';
+      }
+    }
+
+    
 }
